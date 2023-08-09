@@ -95,5 +95,12 @@ The weapon and specialization sections don't have any impact on the stats number
 The stats block (offensive/defensive/utility/DMG/Armor/Health) is a basic represenation of the values extracted from the gear. 
 For the moment, this is not considering some bonus values.
 
-<br>
+<br><br>
 
+#### **Credits and References**: 
+- [GitHub mxswat](https://github.com/mxswat/mx-division-builds)
+- [Division 2 Gear Spreadsheet](https://docs.google.com/spreadsheets/d/1nrPBmOrtpkEW1j5fbcRT7L-AXgsGOqMqxXoVtopsiGM/edit#gid=0)
+- [The Division 2 Gear Attribute Sheet](https://docs.google.com/spreadsheets/d/e/2PACX-1vTMyKlW90Q2H3RDKXF7cISzVgs7aM9tjqFtf2ZH6i1e_U_8K_LUD2-2ccTrXrgsLBUW15U-9z7u5tgz/pubhtml#)
+- [Div 2 Builder 3.0.0](https://docs.google.com/spreadsheets/d/13ktgihRoZjkcoNq7vMOOlOhE51BSfOdGuUPDPiVb9yc/edit#gid=2002839369)
+
+<br>
