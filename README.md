@@ -97,7 +97,7 @@ For the moment, this is not considering some bonus values.
 
 <br><br>
 
-#### **Credits and References**: 
+### **Credits and References**: 
 - [GitHub mxswat](https://github.com/mxswat/mx-division-builds)
 - [Division 2 Gear Spreadsheet](https://docs.google.com/spreadsheets/d/1nrPBmOrtpkEW1j5fbcRT7L-AXgsGOqMqxXoVtopsiGM/edit#gid=0)
 - [The Division 2 Gear Attribute Sheet](https://docs.google.com/spreadsheets/d/e/2PACX-1vTMyKlW90Q2H3RDKXF7cISzVgs7aM9tjqFtf2ZH6i1e_U_8K_LUD2-2ccTrXrgsLBUW15U-9z7u5tgz/pubhtml#)
