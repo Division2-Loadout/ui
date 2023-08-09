@@ -18,6 +18,9 @@ Here are some ideas to get you started:
 
 # Division2-Loadout
 
+More functionalities and updates will be added soon.<br>
+If you find this tool useful, feel free to make a request and I will try to work on it.<br>
+
 ### What is the purpose of this app?
 - The main purpose is to track loadouts and builds we have set in-game.
 - Allow us to have a copy of loadouts we have in-game.
@@ -85,4 +88,9 @@ The weapon and specialization sections don't have any impact on the stats number
 
 The stats block (offensive/defensive/utility/DMG/Armor/Health) is a basic represenation of the values extracted from the gear. 
 For the moment, this is not considering some bonus values.
+
+<br>
+
+![Screenshot](screenshots/ui.png)
+
 <br>
