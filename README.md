@@ -70,14 +70,16 @@ There are 2 types of tags
 ## Main Loadout Section
 
 This is where we track our loadouts. <br>
-There are 2 view modes:<br>
+There are 2 view modes for displaying the loadout:<br>
 - **edit**: Allows us to make changes on the loadouts.
-- **view**: shows the stats with color bars link in-game.
+- **view**: shows the stats with color bars similar to in-game.
 
 <br>
 
-**Note**: The weapon and specialization sections don't have any impact on the stats numbers for the moment.
+**Note**: The weapon and specialization sections don't have any impact on the stats numbers for the moment. <br><br>
 
+The stats block (offensive/defensive/utility/DMG/Armor/Health) is a basic represenation of the values extracted from the gear. 
+For the moment, this is not considering some bonus values.
 <br>
 
 ![Screenshot](screenshots/main_loadout.png)
