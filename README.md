@@ -16,5 +16,7 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
+### Division2-Loadout
+
 ![Screenshot](screenshots/menu.png)
 ![Screenshot](screenshots/main_loadout.png)
