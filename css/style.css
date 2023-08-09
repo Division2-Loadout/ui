@@ -1,0 +1,551 @@
+
+/* CUSTOM CHECKBOX [START] */
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #707070;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 4px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/* CUSTOM CHECKBOX [END] */
+
+body {
+  background-color: black;
+  color: white;
+  font-family: roboto condensed,Helvetica,Arial,sans-serif;
+}
+input {
+  background-color: #111;
+  c-olor: #111;
+  font-size:14px;
+  font-family: Consolas, monaco, monospace;
+  w-idth: 300px;
+  border: 1px solid #303030;
+  outline: none;
+}
+button {
+  background-color: #111;
+  c-olor: #111;
+  font-size:14px;
+  font-family: Consolas, monaco, monospace;
+  w-idth: 300px;
+  border: 1px solid #303030;
+  outline: none;
+}
+select {
+  background-color: #111;
+  c-olor: #111;
+  font-size:14px;
+  font-family: Consolas, monaco, monospace;
+  w-idth: 300px;
+  border: 1px solid #303030;
+  outline: none;
+}
+textarea {
+  background-color: #111;
+  c-olor: #111;
+  font-size:12px;
+  font-family: Consolas, monaco, monospace;
+  width: 600px;
+  height: 200px;
+  border: 1px solid #303030;
+  outline: none;
+}
+.ui-autocomplete {
+  font-size:12px;
+  font-family: Consolas, monaco, monospace;
+}
+/*
+table tr td {
+  b-order-right: 1px solid rgb(75, 75, 75);
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: rgb(221, 221, 221);
+  font-size:16px;
+  font-family: Consolas, monaco, monospace;
+  f-ont: 18px 'Arial Narrow', Arial, sans-serif; 
+  f-ont-stretch: condensed;
+}
+*/
+table tr td {
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  color: rgb(221, 221, 221);
+  font-size:16px;
+  font-family: Consolas, monaco, monospace;
+}
+.table_title {
+  f-ont-weight: bold;
+  background-color: rgb(235, 106, 0);
+}
+.bg_a {
+  background-color: rgb(24, 24, 24);
+}
+.bg_b {
+  background-color: #222;
+}
+.bg_rank_1 {
+  background-color: rgb(0, 71, 0);
+}
+.bg_rank_2 {
+  background-color: rgb(0, 28, 71);
+}
+.type_exotic {
+  color:darkorange;
+  font-weight: bold;
+}
+.type_named {
+  color: rgb(248, 189, 40);
+  font-weight: bold;
+}
+.pointer {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  filter: sepia(50%) brightness(50%) hue-rotate(170deg) saturate(70%) contrast(300%);
+}
+
+table.table-bordered{
+  border:1px solid rgb(0, 0, 0);
+}
+table.table-bordered > thead > tr > th {
+  border:1px solid rgb(0, 0, 0);
+}
+table.table-bordered > thead > tr > td {
+  border:1px solid rgb(0, 0, 0);
+}
+table.table-bordered > tbody > tr > td {
+  border:1px solid rgb(0, 0, 0);
+}
+
+.table-hover thead tr:hover th, .table-hover tbody tr:hover td {
+  background-color: #111;
+}
+
+#contextMenu {
+  position: absolute;
+  display:none;
+  z-index: 10;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  t-ext-transform: uppercase;
+}
+
+a:hover {
+  b-ackground-color: #222;
+  text-decoration: none;
+  color:rgb(235, 106, 0) !important;;
+  f-ont-weight: bold;
+}
+
+a:active {
+  text-decoration: none;
+  color:rgb(235, 106, 0);
+}
+
+a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.build_armor_title {
+  padding-left: 5px;
+  padding-right: 5px;
+  b-ackground-color: #8888887c;
+  b-order:1px solid rgba(85, 85, 85, 0.473);
+}
+.build_armor_body {
+  padding: 5px;
+  b-order:1px solid rgba(139, 139, 139, 0.473);
+  height: 150px;
+  width: 300px;
+}
+
+.build_weapon_title {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #ffe3477c;
+  border:1px solid rgba(85, 85, 85, 0.473);
+}
+.build_weapon_body {
+  padding: 5px;
+  padding-left: 12px;
+  border:1px solid #ffe3477c;
+  height: 80px;
+  width: 300px;
+}
+
+.build_sidearm_title {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #ffe3477c;
+  border:1px solid rgba(85, 85, 85, 0.473);
+}
+.build_sidearm_body {
+  padding: 5px;
+  padding-left: 12px;
+  border:1px solid #ffe3477c;
+  height: 80px;
+  width: 260px;
+}
+
+.build_specialization_header {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #1daf0056;
+  border:1px solid #1daf0056;
+}
+.build_specialization_body {
+  padding: 5px;
+  padding-left: 12px;
+  border: 1px solid #1daf0056;
+  height: 105px;
+  width: 300px;
+  font-size: 14px; 
+  f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
+  font-family: Consolas, monaco, monospace;
+}
+
+.build_total_attribute_header {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #0095af56;
+  border:1px solid #0095af56;
+}
+.build_total_attribute_body {
+  padding: 5px;
+  border:1px solid #0095af56;
+  height: 150px;
+  width: 240px;
+}
+.build_total_attribute_content {
+  color: #8b8b8b;
+  font-size: 15px;
+  text-align: right;
+  width: 30px;
+}
+
+.build_viewstats_header {
+  width: 260px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #0095af56;
+  border:1px solid #0095af56;
+}
+.build_viewstats_body {
+  padding: 5px;
+  border:1px solid #0095af56;
+  height: 342px;
+  width: 260px;
+  font-size: 14px; 
+  font-family: Consolas, monaco, monospace;
+}
+
+.custom-input {
+  height: 10px;
+}
+
+.form-control {
+  height: 25px;
+  min-width: 0;
+  color:white;
+  background-color: black;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.text_defensive {
+  color: rgba(130, 171, 214, 0.90);
+}
+.text_offensive {
+  color: rgba(206, 71, 77, 0.90);
+}
+.text_utility {
+  color: rgba(247, 208, 124, 0.90);
+}
+.text_default {
+  color:#fff;
+  background-color: #111;
+}
+
+.bg_default {
+  color:#fff;
+  background-color: #111;
+}
+.bg_red {
+  c-olor:#111;
+  b-ackground-color: rgba(206, 71, 77, 0.90);
+  color: rgba(206, 71, 77, 0.90);
+}
+.bg_blue {
+  c-olor:#111;
+  b-ackground-color: rgba(130, 171, 214, 0.90);
+  color: rgba(130, 171, 214, 0.90);
+}
+.bg_yellow {
+  c-olor:#111;
+  b-ackground-color: rgba(247, 208, 124, 0.90);
+  color: rgba(247, 208, 124, 0.90);
+}
+.bg_grey {
+  c-olor:#ffffff;
+  b-ackground-color: rgba(94, 51, 150, 0.9);
+  color: rgba(172, 109, 255, 0.9)
+}
+
+.bg_slot_exotic_header {
+  background-color: #fd5327;
+  border:1px solid #fd5327;
+}
+.bg_slot_exotic_body {
+  background-color: #fd52271f;
+  border:1px solid #fd5327;
+}
+.bg_slot_set_header {
+  background-color: #00fd83;
+  border:1px solid #00fd83;
+}
+.bg_slot_set_body {
+  background-color: #00fd8317;
+  border:1px solid #00fd83;
+}
+.bg_slot_named_header {
+  background-color: #ffb62f;
+  border:1px solid #ffb62f;
+}
+.bg_slot_named_body {
+  background-color: #ffb62f23;
+  border:1px solid #ffb62f;
+}
+.bg_slot_highend_header {
+  background-color: #fda7067c;
+  border:1px solid #fda7067c;
+}
+.bg_slot_highend_body {
+  background-color: #fda7060a;
+  border:1px solid #fda7067c;
+}
+.bg_slot_default_header {
+  background-color: #8888887c;
+  border:1px solid rgba(139, 139, 139, 0.473);
+}
+.bg_slot_default_body {
+  background-color: #8888881a;
+  border:1px solid rgba(139, 139, 139, 0.473);
+}
+
+
+.item_exotic {
+  color: #fd5327;
+}
+.item_set {
+  color: aquamarine;
+}
+.item_named {
+  color: #ffb62f;
+}
+.item_highend {
+  color:#ffd68b79;
+}
+.item_normal {
+  color:#ffd68b79;
+}
+.item_default {
+  color:aliceblue
+}
+
+.msg {
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #fc850e;
+  font-size: 16px; 
+  font-family: Consolas, monaco, monospace;
+  background-color: #fd522733;
+  display: none;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.build_view_container {
+  padding-bottom: 7px;
+  margin-left: 0px; 
+  w-idth: 405px; 
+  h-eight: 30px; 
+  b-order: 1px solid #303030; 
+  font-size: 14px; 
+  f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
+  font-family: Consolas, monaco, monospace;
+  
+}
+.bar_container {
+  margin-left: 10px; 
+  width: 260px; 
+  height: 4px; 
+  b-order: 1px solid #636262;
+  border-bottom: 1px solid #444;
+  border-left: 1px solid #888;
+  border-right: 1px solid #aaa;
+  background-color: #000000;
+}
+.bar_container_talent {
+  margin-left: 36px; 
+  font-size: 14px; 
+  f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
+  font-family: Consolas, monaco, monospace;
+}
+.bar_bg {
+  m-argin-left: 0.03em;
+  p-adding-top: 1px;
+  w-idth: 80%; 
+  height: 4px; 
+  b-ackground-color: #00fd83;
+}
+.bar_bg_defensive {
+  background-color: rgba(130, 171, 214, 0.90);
+}
+.bar_bg_offensive {
+  background-color: rgba(206, 71, 77, 0.90);
+}
+.bar_bg_utility {
+  background-color: rgba(247, 208, 124, 0.90);
+}
+.bar_text_value {
+  font-weight: 500;
+  c-olor: #FF8000;
+  color: #fc850e;
+  m-argin-left: 2px; 
+  width: 52px;
+  font-family: Consolas, monaco, monospace;
+}
+
+.stats_text {
+  padding-left: 14px;
+  margin-left: 10px;
+  font-size: 16px; 
+  font-family: Consolas, monaco, monospace;
+  f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
+  
+}
+.stats_text_value {
+  width: 70px;
+  text-align: right;
+  padding-left: 14px;
+  margin-left: 10px;
+  font-size: 16px; 
+  font-family: Consolas, monaco, monospace;
+  f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
+  color: #fc850e;
+}
+
+.stats_list {
+  padding-left: 10px;
+  margin-left: 10px;
+  font-size: 14px; 
+  font-family: Consolas, monaco, monospace;
+  f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
+  
+}
+.stats_list_value {
+  width: 60px;
+  text-align: right;
+  padding-left: 2px;
+  margin-left: 10px;
+  font-size: 14px; 
+  font-family: Consolas, monaco, monospace;
+  f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
+  color: #fc850e;
+}
+
+.text_default {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
+.box_tag {
+  display: inline-block; 
+  border:1px solid rgb(88, 88, 88);
+  background-color: #111;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  text-align: center;
+  color: #888888;
+  font-family: 'Courier New', Courier, monospace;
+  padding-top: 1px;
+}
+.box_tag_selected {
+  background-color: #fc850e;
+  color: #111;
+}
+.menu_icon {
+  padding-right: 6px;
+  font-size: 18px;
+  padding-bottom: 4px;
+}
