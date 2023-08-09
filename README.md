@@ -81,6 +81,12 @@ There are 2 view modes for displaying the loadout:<br>
 
 ![Screenshot](screenshots/main_loadout.png)
 
+<br><br>
+
+Here a screenshot of the UI with a loadout.
+
+![Screenshot](screenshots/ui.png)
+
 <br>
 
 ### **Disclaimer**: 
@@ -91,6 +97,3 @@ For the moment, this is not considering some bonus values.
 
 <br>
 
-![Screenshot](screenshots/ui.png)
-
-<br>
