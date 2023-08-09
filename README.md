@@ -91,7 +91,7 @@ There are 2 view modes for displaying the loadout:<br>
 ## UI Loadout
 
 There are 2 demos in the list. Feel free to change them or delete them.<br>
-If there are no loadouts in the list, the demos will return.<br>
+If there are no loadouts in the list, the demos will return.<br><br>
 
 ![Screenshot](screenshots/ui.png)
 
