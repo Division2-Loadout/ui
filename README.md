@@ -32,10 +32,11 @@ Here are some ideas to get you started:
 <br>
 
 ### What is NOT the purpose of this app?
-- This is not live data from Division 2. There is no API to use, so we cannot get our in-game loadouts.
+- This is not live data from Division 2. 
+- There is no API to use, so we cannot get our in-game loadouts.
 - This app is not meant for making detailed builds. You should use [mxswat/mx-division-builds](https://mxswat.github.io/mx-division-builds) for that purpose.
 
-<br><br>
+<br>
 
 ## Menu
 ![Screenshot](screenshots/menu.png)
@@ -46,5 +47,14 @@ Here are some ideas to get you started:
 
 <br>
 
-## Main Loadout section
+## Main Loadout Section
 ![Screenshot](screenshots/main_loadout.png)
+
+This is where we track our loadouts. <br>
+There are 2 view modes:<br>
+- **edit**: Allows us to make changes on the loadouts.
+- **view**: shows the stats with color bars link in-game.
+
+<br>
+
+**Note**: The weapon and specialization sections don't have any impact on the stats numbers for the moment.
