@@ -1,6 +1,7 @@
-### Hi there 👋
+
 
 <!--
+### Hi there 👋
 **Division2-Loadout/Division2-Loadout** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
@@ -16,3 +17,4 @@ Here are some ideas to get you started:
 -->
 
 ![Screenshot](screenshots/menu.png)
+![Screenshot](screenshots/main_loadout.png)
