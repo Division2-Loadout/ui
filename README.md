@@ -18,7 +18,7 @@ Here are some ideas to get you started:
 
 # Division2-Loadout
 
-What is the purpose of this app?
+### What is the purpose of this app?
 - The main purpose is to track loadouts and builds we have set in-game.
 - Allow us to have a copy of loadouts we have in-game.
 - We can make as many loadouts as we want.
@@ -29,16 +29,19 @@ What is the purpose of this app?
 - Export/Import loadouts.
 - The data is stored locally on your browser.
 
-
-What is NOT the purpose of this app?
+<br>
+### What is NOT the purpose of this app?
 - This is not live data from Division 2. There is no API to use, so we cannot get our in-game loadouts.
 - This app is not meant for making detailed builds. You should use [mxswat/mx-division-builds](https://mxswat.github.io/mx-division-builds) for that purpose.
 
 
-### Menu
+## Menu
 ![Screenshot](screenshots/menu.png)
 
-build/loadout: You can se
+**build/loadout**: This is the list of loadouts you saved.
+**name**: The name of the loadout. It can be renamed by changing the name and click on save.
+**description**: A description for the loadout.
 
-### Main Loadout section
+<br>
+## Main Loadout section
 ![Screenshot](screenshots/main_loadout.png)
