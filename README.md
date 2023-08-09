@@ -76,10 +76,13 @@ There are 2 view modes for displaying the loadout:<br>
 
 <br>
 
-**Note**: The weapon and specialization sections don't have any impact on the stats numbers for the moment. <br><br>
+![Screenshot](screenshots/main_loadout.png)
+
+<br>
+
+### **Note**: 
+The weapon and specialization sections don't have any impact on the stats numbers for the moment. <br>
 
 The stats block (offensive/defensive/utility/DMG/Armor/Health) is a basic represenation of the values extracted from the gear. 
 For the moment, this is not considering some bonus values.
 <br>
-
-![Screenshot](screenshots/main_loadout.png)
