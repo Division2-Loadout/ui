@@ -83,7 +83,7 @@ There are 2 view modes for displaying the loadout:<br>
 
 <br><br>
 
-## UI with a loadout
+## UI Loadout
 
 ![Screenshot](screenshots/ui.png)
 
