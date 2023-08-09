@@ -41,14 +41,33 @@ Here are some ideas to get you started:
 ## Menu
 ![Screenshot](screenshots/menu.png)
 
-**build/loadout**: This is the list of loadouts you saved.<br>
-**name**: The name of the loadout. It can be renamed by changing the name and click on save.<br>
-**description**: A description for the loadout.<br>
+Icons (from left to right):<br>
+- New: Creates new loadout.
+- Clone: Make a copy of an existent loadout into a new name.
+- Save: Save changes.
+- Share: Share a short-link with the loadout.
+- Import: Import a backup. (Import from JSON data)
+- Export: Make a backup. (saved as a JSON file)
+- Delete: Deletes teh selected loadout.
 
 <br>
 
+Fields:<br>
+- **build/loadout**: This is the list of loadouts you saved.<br>
+- **name**: The name of the loadout. It can be renamed by changing the name and click on save.<br>
+- **description**: A description for the loadout.<br>
+
+<br>
+
+Tags:<br>
+There are 2 types of tags (from left to right)
+- Character: This is where the loadout/gear is stored.
+- Purpose: Loadout/Build/Gearset/Other.
+
+
+<br><br>
+
 ## Main Loadout Section
-![Screenshot](screenshots/main_loadout.png)
 
 This is where we track our loadouts. <br>
 There are 2 view modes:<br>
@@ -58,3 +77,7 @@ There are 2 view modes:<br>
 <br>
 
 **Note**: The weapon and specialization sections don't have any impact on the stats numbers for the moment.
+
+<br>
+
+![Screenshot](screenshots/main_loadout.png)
