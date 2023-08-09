@@ -41,7 +41,7 @@ Here are some ideas to get you started:
 ## Menu
 ![Screenshot](screenshots/menu.png)
 
-#### **Icons** (from left to right):<br>
+#### **Icons**:<br>
 - **New**: Creates new loadout.
 - **Clone**: Make a copy of an existent loadout into a new name.
 - **Save**: Save changes.
@@ -60,7 +60,7 @@ Here are some ideas to get you started:
 <br>
 
 **Tags**:<br>
-There are 2 types of tags (from left to right)
+There are 2 types of tags
 - **Character**: This is where the loadout/gear is stored.
 - **Purpose**: Loadout/Build/Gearset/Other.
 
