@@ -24,7 +24,7 @@ For using **Division2-Loadout**, visit:
 <br>
 
 More functionalities and updates will be added soon.<br>
-If you find this tool useful, feel free to make a request and I will try to work on it.<br>
+If you find this tool useful, feel free to make a request and we will try to work on it.<br>
 
 ### What is the purpose of this app?
 - The main purpose is to track loadouts and builds we have set in-game.
