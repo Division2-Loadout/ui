@@ -18,7 +18,10 @@ Here are some ideas to get you started:
 
 # Division2-Loadout
 
+For using **Division2-Loadout**, visit:
 ### https://division2-loadout.github.io/ui/
+
+<br>
 
 More functionalities and updates will be added soon.<br>
 If you find this tool useful, feel free to make a request and I will try to work on it.<br>
