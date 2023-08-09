@@ -30,18 +30,21 @@ Here are some ideas to get you started:
 - The data is stored locally on your browser.
 
 <br>
+
 ### What is NOT the purpose of this app?
 - This is not live data from Division 2. There is no API to use, so we cannot get our in-game loadouts.
 - This app is not meant for making detailed builds. You should use [mxswat/mx-division-builds](https://mxswat.github.io/mx-division-builds) for that purpose.
 
+<br><br>
 
 ## Menu
 ![Screenshot](screenshots/menu.png)
 
-**build/loadout**: This is the list of loadouts you saved.
-**name**: The name of the loadout. It can be renamed by changing the name and click on save.
-**description**: A description for the loadout.
+**build/loadout**: This is the list of loadouts you saved.<br>
+**name**: The name of the loadout. It can be renamed by changing the name and click on save.<br>
+**description**: A description for the loadout.<br>
 
 <br>
+
 ## Main Loadout section
 ![Screenshot](screenshots/main_loadout.png)
