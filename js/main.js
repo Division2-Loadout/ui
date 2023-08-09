@@ -26,6 +26,10 @@ function init() {
 
     db_build = get_private_db("private_db_build")
 
+    if (Object.keys(db_build).length === 0) {
+        db_build = build_demo
+    }
+
     db_build_temp = {}
     for (v_key in db_build) {
         if (v_key !== "") {
