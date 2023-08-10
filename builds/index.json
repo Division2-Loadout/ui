@@ -1,0 +1,23 @@
+{
+    "0": {
+        "name": "_NAME_",
+        "path": "_PATH_",
+        "source": "_SOURCE_",
+        "credit": "_CREDIT_",
+        "date": "2023-08-10"
+    },
+    "1": {
+        "name": "FACE TANK LIKE A BOSS with 1.9M Armor & 106 rounds of SHOCK AMMO! - The Division 2 Tank Build",
+        "path": "builds/",
+        "source": "https://www.youtube.com/watch?v=ayEPkFd_708",
+        "credit": "Kamikazevondoom",
+        "date": "2023-08-09"
+    },
+    "2": {
+        "name": "ST. Elmo's Engine Negotiators Solo/Group PVE Build - The Division 2 - SHRED ENEMIES - Build Guide",
+        "path": "builds/",
+        "source": "https://www.youtube.com/watch?v=8KsH-lNu2pM",
+        "credit": "The Gaming Brigade",
+        "date": "2023-08-09"
+    }
+}
