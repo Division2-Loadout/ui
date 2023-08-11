@@ -741,6 +741,35 @@ function set_build_stored(v_build_stored) {
     $(`#btn_char_${v_build_stored}`).addClass("box_tag_selected")
 }
 
+function request_get(v_url, v_type="json") {
+    $.getJSON( v_url, function( data ) {
+        /*
+        $.each( data, function( key, val ) {
+            console.log(key, val)
+        });
+        */
+        console.log(data)
+    });
+}
+
+$(document).on("click", "[id^=btn_search_set_]", function() {
+    v_id = $(this).attr("id").replace("btn_search_set_", "")
+    v_url = `https://raw.githubusercontent.com/Division2-Loadout/ui/main/builds/${v_id}.json`
+    
+    $.getJSON( v_url, function( data ) {
+        console.log(data)
+
+        build_template = data
+        load_build_template(build_template)
+    });
+
+});
+
+$(document).on("click", "#btn_search_build", function() {
+    v_url = "https://raw.githubusercontent.com/Division2-Loadout/ui/main/builds/index.json"
+    request_get(v_url)
+});
+
 $(document).on("click", "#viewstats", function() {
     v_value = $("#viewstats").val()
     show_db_stats(v_value)
@@ -748,6 +777,27 @@ $(document).on("click", "#viewstats", function() {
 
 $(document).on("click", "#btn_build_export", function() {
     export_db()
+});
+
+$(document).on("click", "#btn_modal_export", function() {
+    v_data = JSON.stringify(build_template, null, 2);
+    $("#field_export").val(v_data)
+    $("#btn_export_current").addClass("box_tag_selected")
+    $("#btn_export_all").removeClass("box_tag_selected")
+});
+
+$(document).on("click", "#btn_export_current", function() {
+    v_data = JSON.stringify(build_template, null, 2);
+    $("#field_export").val(v_data)
+    $("#btn_export_current").addClass("box_tag_selected")
+    $("#btn_export_all").removeClass("box_tag_selected")
+});
+
+$(document).on("click", "#btn_export_all", function() {
+    v_data = JSON.stringify(db_build, null, 2);
+    $("#field_export").val(v_data)
+    $("#btn_export_all").addClass("box_tag_selected")
+    $("#btn_export_current").removeClass("box_tag_selected")
 });
 
 $(document).on("click", "#btn_import", function() {
@@ -767,11 +817,31 @@ $(document).on("click", "#btn_import", function() {
     console.log(v_json)
 
     if (typeof v_json === "object" && v_json !== null && isJsonable(v_data)) {
-        db_build = v_json
+
+        db_build_update = JSON.parse(JSON.stringify(db_build));
+        if ("name" in v_json) {
+            console.log("add new [single]")
+            v_key = sanitizeString(v_json["name"])
+            console.log(`[>] NEW: ${v_key}`)
+            db_build_update[v_key] = v_json
+        } else {
+            console.log("add new [multiple]")
+            for (v_key in v_json) {
+                v_key = sanitizeString(v_key)
+                console.log(`[>] NEW: ${v_key}`)
+                db_build_update[v_key] = v_json[v_key]
+            }
+        }
+
+        console.log(db_build_update)
+
+        //db_build = v_json
+        db_build = JSON.parse(JSON.stringify(db_build_update))
         set_private_db("private_db_build", db_build)
         load_build_list()
         $("#modal_import .close").click()
         $("#field_import").val("")
+
     } else {
         alert("Nothing to import or error on data")
     }
@@ -1622,6 +1692,7 @@ function weapon_title() {
         content  = `<select id="${v_slot_id}_item" style="width: ${css_socket_select_width}px;" onchange="this.className=this.options[this.selectedIndex].className">`
         content += `    <option class="bg_default">[${v_title}]</option>`
         
+        db_gear = sortByKey(db_gear, "item")
         db_gear = sortByKey(db_gear, "quality")
         for (let v_key in db_gear) {
             if (db_gear[v_key]["slot"].toLowerCase() === v_slot_id.replace("slot_", "")) {
@@ -2581,3 +2652,100 @@ function weapon_title() {
         make_build_body("slot_kneepads", "Kneepads", "Future Initiative")
         */
     }
+
+
+    function search_run() {
+        var table =  $('#myTable');
+
+        v_url = "https://raw.githubusercontent.com/Division2-Loadout/ui/main/builds/index.json"
+        
+        $.ajaxSetup({async: false})
+        $.getJSON( v_url, function( data ) {
+            db_search = data
+        });
+        $.ajaxSetup({async: true})
+
+        console.log(db_search)
+
+        v_filter_name = $("#search_name").val()
+        for (let v_key in db_search) {
+            if (v_filter_name === "") {
+                db_search[v_key]["id"] = Number(v_key)
+                db_search_filter.push(db_search[v_key])
+            } else {
+                if (db_search[v_key]["name"].toLowerCase().includes(v_filter_name)) {
+                    db_search[v_key]["id"] = Number(v_key)
+                    db_search_filter.push(db_search[v_key])
+                }
+            }
+        }
+
+        db_search_filter = sortByKey(db_search_filter, "id")
+        db_search_filter = sortByKey(db_search_filter, "date")
+        db_search_filter.reverse()
+
+        console.log(db_search_filter)
+
+        max_size=db_search_filter.length;
+        sta = 0;
+        elements_per_page = 5;
+        limit = elements_per_page;
+
+        search_list(sta,limit);
+    } 
+    
+    function search_list(sta,limit) {
+        var table =  $('#search_table');
+        for (var i =sta ; i < limit; i++) {            
+            //var $nr = $('<tr><td>A-' + b[i]['play_id'] + '</td><td>B-' + b[i]['question1']  + '</td></tr>');
+            try {
+                console.log(db_search_filter[i])
+                content  = `<tr>`
+                content += `    <td nowrap c-lass="search_td" style="padding-left: 0px; padding-right: 0px; padding-top: 2pxpx;">`
+                content += `        <a id="btn_search_set_${db_search_filter[i]["id"]}" href="#" c-lass="menu_icon" style="color: #ccc" title="Download"><span class="glyphicon glyphicon-download-alt"></span></a>`
+                content += `    </td>`
+                content += `    <td nowrap class="search_td" style="margin-left: 0px;">${db_search_filter[i]["id"]}</td>`
+                content += `    <td nowrap class="search_td">${db_search_filter[i]["date"]}</td>`
+                content += `    <td nowrap class="search_td">${db_search_filter[i]["credit"]}</td>`
+                content += `    <td class="search_td" style="width: 300px">${db_search_filter[i]["desc"].toLowerCase()}</td>`
+                content += `</tr>`
+                table.append(content);
+            } catch {
+                console.log(i)
+            }
+            
+        }
+    }
+
+    //$('#search_run').click(function(){
+    $(document).on("click", "#search_run", function() {
+        console.log('#search_run')
+        $('#search_table').empty()
+        db_search = {}
+        db_search_filter = []
+        search_run()
+    });
+
+    //$('#nextValue').click(function(){
+    $(document).on("click", "#nextValue", function() {
+        var table =  $('#search_table');
+        var next = limit;
+        console.log(`#nextValue ${next}`)
+        if(max_size>=next) {
+            limit = limit+elements_per_page;
+            table.empty();
+            search_list(next,limit);
+        }
+    });
+
+    //$('#PreeValue').click(function(){
+    $(document).on("click", "#PreeValue", function() {
+        var table =  $('#search_table');
+        var pre = limit-(2*elements_per_page);
+        console.log(`#PreeValue ${pre}`)
+        if(pre>=0) {
+            limit = limit-elements_per_page;
+            table.empty();
+            search_list(pre,limit); 
+        }
+    });

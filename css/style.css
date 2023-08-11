@@ -333,6 +333,11 @@ a:visited {
   color:#fff;
   background-color: #111;
 }
+.text_title {
+  color:#fff;
+  font-size: 18px; 
+  font-family: Consolas, monaco, monospace;
+}
 
 .bg_default {
   color:#fff;
@@ -548,4 +553,28 @@ a:visited {
   padding-right: 6px;
   font-size: 18px;
   padding-bottom: 4px;
+}
+
+.search_td {
+  background-color: #181818;
+  font-size:14px;
+  font-family: Consolas, monaco, monospace;
+  text-align: left;
+  vertical-align: top;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.search_td_title {
+  background-color: #111;
+  color: #fc850e;
+}
+
+.modal-backdrop{
+  opacity:0; transition:opacity .2s;
+}
+.modal-backdrop.in{
+  opacity:.5;
 }

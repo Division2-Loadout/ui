@@ -237,6 +237,12 @@ db_gear_extra = {
         "Damage to TOC": {
             "max": 8
         },
+        "Health Damage": {
+            "max": 10
+        },
+        "Damage to Armor": {
+            "max": 8
+        }
     },
     "utility": {
         

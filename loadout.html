@@ -45,10 +45,12 @@
                         <a id="btn_build_clone" href="#" class="menu_icon" title="Clone"><span class="glyphicon glyphicon-duplicate"></span></a>
                         <a id="btn_build_save" href="#" class="menu_icon" title="Save"><span class="glyphicon glyphicon-floppy-save"></span></a>
                         <a id="btn_build_share" href="#" class="menu_icon" title="Share"><span class="glyphicon glyphicon-link"></span></a>
-                        <span style="padding-left: 4px; padding-right: 4px;">|</span>
+                        <span style="padding-left: 4px; padding-right: 8px;">|</span>
+                        <a href="#" class="menu_icon" title="Search" data-toggle="modal" data-target="#modal_search"><span class="glyphicon glyphicon-search"></span></a>
                         <a href="#" class="menu_icon" title="Import" data-toggle="modal" data-target="#modal_import"><span class="glyphicon glyphicon-import"></span></a>
-                        <a id="btn_build_export" href="#" class="menu_icon" title="Export"><span class="glyphicon glyphicon-export"></span></a>
-                        <span style="padding-left: 4px; padding-right: 4px;">|</span>
+                        <a id="btn_modal_export" href="#" class="menu_icon" title="Export" data-toggle="modal" data-target="#modal_export"><span class="glyphicon glyphicon-export"></span></a>
+                        <!--<a id="btn_build_export" href="#" class="menu_icon" title="Export"><span class="glyphicon glyphicon-export"></span></a>-->
+                        <span style="padding-left: 4px; padding-right: 8px;">|</span>
                         <a id="btn_build_delete" href="#" class="menu_icon" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>
                         <span id="msg" class="msg"></span>
                     </div>
@@ -240,12 +242,12 @@
         </div>
     </div>
   
-    <!-- Modal -->
+    <!-- Modal START -->
     <div class="modal fade" id="modal_import" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div style="background-color: rgba(0, 0, 0, 0.727); border:1px solid rgb(88, 88, 88);"  class="modal-content">
-            <div style="height: 50px; border-bottom: 0px solid rgb(88, 88, 88);" class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Import Loadouts</h5>
+            <div style="height: 40px; border-bottom: 0px solid rgb(88, 88, 88);" class="modal-header">
+            <h4 class="modal-title text_title" id="exampleModalLabel">Import Loadout</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -253,13 +255,79 @@
             <div class="modal-body">
             <textarea id="field_import" style="width: 570px;"></textarea>
             <div style="width: 100%; text-align: right;">
-                <button type="button" c-lass="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id="btn_import" type="button" cl-ass="btn btn-primary">Import</button>
+                <button type="button" c-lass="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
             </div>
         </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal_export" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div style="background-color: rgba(0, 0, 0, 0.727); border:1px solid rgb(88, 88, 88);"  class="modal-content">
+            <div style="height: 40px; border-bottom: 0px solid rgb(88, 88, 88);" class="modal-header">
+            <h4 class="modal-title text_title" id="exampleModalLabel">Export Loadout</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <textarea id="field_export" style="width: 570px;"></textarea>
+            <div style="width: 100%; text-align: right;">
+                <button id="btn_export_current" type="button" cl-ass="btn btn-primary">Current</button>
+                <button id="btn_export_all" type="button" c-lass="btn btn-secondary">All</button>
+                <span style="margin-left: 5px; margin-right: 5px;">|</span>
+                <button id="btn_build_export" type="button" cl-ass="btn btn-primary">Export</button>
+                <button type="button" c-lass="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 800px;" role="document">
+        <div style="background-color: rgba(0, 0, 0, 0.727); border:1px solid rgb(88, 88, 88);"  class="modal-content">
+            <div style="height: 40px; border-bottom: 0px solid rgb(88, 88, 88);" class="modal-header">
+            <h4 class="modal-title text_title" id="exampleModalLabel">Search Build</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            
+                <div style="width:760px">
+                    <div style="padding-left: 25px;">
+                        <input id="search_name">
+                        <button id="search_run">search</button>
+                        <div class="inline text_default" style="padding-left: 10px;"><span id="PreeValue">< pre</span> | <span id="nextValue">next ></span></div>
+                        
+                    </div>
+                    <table class="table table-sm table-bordered table-hover" class="table_search" b-order="1">
+                        <thead>
+                            <tr>
+                                
+                                <th c-lass="search_td search_td_title" style="width: 20px"></th>
+                                <th class="search_td search_td_title" style="width: 30px; margin-left: 0px;">id</th>
+                                <th class="search_td search_td_title" style="width: 100px">date</th>
+                                <th class="search_td search_td_title" style="width: 150px">credit</th> 
+                                <th class="search_td search_td_title" style="width: 300px">name</th>  
+                            </tr>
+                        </thead>
+                        <tbody id="search_table"></tbody>
+                    </table>
+                </div>
+
+            <div style="width: 100%; text-align: right;">
+                <button type="button" c-lass="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal END -->
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FN64E3GLZL"></script>

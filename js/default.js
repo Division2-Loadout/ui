@@ -13,6 +13,14 @@ var view_mode = "bars"
 var v_build_stored = "1"
 var v_build_tag = "loadout"
 
+// SEARCH BUILD
+var db_search = {}
+var db_search_filter = []
+var max_size;
+var sta;
+var elements_per_page;
+var limit;
+
 var build_template = {
     "name": "",
     "desc": "",
