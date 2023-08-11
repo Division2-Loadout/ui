@@ -1,0 +1,146 @@
+{
+    "name": "2023-08-06 The Gaming Brigade",
+    "desc": "My Favorite Countdown Build - High Damage & Armor - Solo/Group PVE Build - Division 2 Tips & Tricks https://www.youtube.com/watch?v=lV55fYfiV9Q",
+    "stored": "1",
+    "tag": "build",
+    "specialization": {},
+    "slot_primary": {
+      "item": "Scorpio"
+    },
+    "slot_secondary": {},
+    "slot_sidearm": {},
+    "slot_mask": {
+      "item": "Hunter's Fury",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket4": {
+        "name": "Protection from Elites",
+        "socket": "mod",
+        "class": "defensive",
+        "value": 13
+      }
+    },
+    "slot_backpack": {
+      "item": "Belstone Armory",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Armor Regeneration",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 4925
+      },
+      "socket3": {
+        "name": "Explosive Resistance",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket4": {
+        "name": "Protection from Elites",
+        "socket": "mod",
+        "class": "defensive",
+        "value": 13
+      },
+      "socket5": {
+        "name": "Adrenaline Rush",
+        "socket": "talent",
+        "class": null
+      }
+    },
+    "slot_chest": {
+      "item": "Pointman",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Explosive Resistance",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket4": {
+        "name": "Protection from Elites",
+        "socket": "mod",
+        "class": "defensive",
+        "value": 13
+      },
+      "socket5": {
+        "name": "Perfect Vanguard",
+        "socket": "talent",
+        "class": "",
+        "value": 0
+      }
+    },
+    "slot_gloves": {
+      "item": "Hunter's Fury",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      }
+    },
+    "slot_holster": {
+      "item": "Hunter's Fury",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      }
+    },
+    "slot_kneepads": {
+      "item": "Hunter's Fury",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_specialization": {
+      "item": "Gunner"
+    }
+  }
