@@ -2713,7 +2713,7 @@ function weapon_title() {
                 }
                 content  = `<tr>`
                 content += `    <td nowrap c-lass="search_td" style="padding-left: 0px; padding-right: 0px; padding-top: 2px;">`
-                content += `        <a id="btn_search_set_${db_search_filter[i]["id"]}" href="#" c-lass="menu_icon" style="color: #ccc" title="Download"><span class="glyphicon glyphicon-download-alt"></span></a>`
+                content += `        <a id="btn_search_set_${db_search_filter[i]["id"]}" c-lass="menu_icon" style="color: #ccc" title="Download"><span class="glyphicon glyphicon-download-alt"></span></a>`
                 content += `    </td>`
                 //content += `    <td nowrap class="search_td" style="margin-left: 0px;">${db_search_filter[i]["id"]}</td>`
                 content += `    <td nowrap class="search_td">${db_search_filter[i]["date"]}</td>`
