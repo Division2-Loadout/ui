@@ -98,6 +98,7 @@ If there are no loadouts in the list, the demos will return.<br><br>
 
 <br>
 
+[disclaimer](#disclaimer)
 ### **Disclaimer**: 
 The weapon and specialization sections don't have any impact on the stats numbers for the moment. <br>
 
