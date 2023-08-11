@@ -2671,13 +2671,13 @@ function weapon_title() {
 
         console.log(db_search)
 
-        v_filter_name = $("#search_name").val()
+        v_filter_name = $("#search_name").val().toLowerCase()
         for (let v_key in db_search) {
             if (v_filter_name === "") {
                 db_search[v_key]["id"] = Number(v_key)
                 db_search_filter.push(db_search[v_key])
             } else {
-                if (db_search[v_key]["name"].toLowerCase().includes(v_filter_name)) {
+                if (db_search[v_key]["desc"].toLowerCase().includes(v_filter_name)) {
                     db_search[v_key]["id"] = Number(v_key)
                     db_search_filter.push(db_search[v_key])
                 }
