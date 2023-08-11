@@ -1,0 +1,154 @@
+{
+    "name": "2023-08-07 Kamikazevondoom",
+    "desc": "HIGHEST BASE DAMAGE POSSIBLE - The Division 2 St. Elmo's Engine Build https://www.youtube.com/watch?v=po_M-G4thSY",
+    "stored": "1",
+    "tag": "build",
+    "specialization": {},
+    "slot_primary": {
+      "item": "St. Elmo's Engine"
+    },
+    "slot_secondary": {
+      "item": "The Sleigher"
+    },
+    "slot_sidearm": {},
+    "slot_mask": {
+      "item": "Heartbreaker",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": "170000"
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket4": {
+        "name": "Critical Hit Chance",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 6
+      }
+    },
+    "slot_backpack": {
+      "item": "NinjaBike Messenger Backpack",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket3": {
+        "name": "Skill Tier",
+        "socket": "core",
+        "class": "utility",
+        "value": 1
+      },
+      "socket4": {
+        "name": "Critical Hit Chance",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket5": {
+        "name": "Parkour!",
+        "socket": "talent",
+        "class": "",
+        "value": 0
+      }
+    },
+    "slot_chest": {
+      "item": "Walker, Harris & Co",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket3": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket4": {
+        "name": "Critical Hit Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket5": {
+        "name": "Glass Cannon",
+        "socket": "talent",
+        "class": null
+      }
+    },
+    "slot_gloves": {
+      "item": "Tip of the Spear",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_holster": {
+      "item": "Fenris Group AB",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket3": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_kneepads": {
+      "item": "Tip of the Spear",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      }
+    },
+    "slot_specialization": {
+      "item": "Sharpshooter"
+    }
+  }
