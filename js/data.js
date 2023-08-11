@@ -194,6 +194,9 @@ db_gear_mod = {
         },
         "Shock Resistance": {
             "max": 10
+        },
+        "Pulse Resistance": {
+            "max": 10
         }
     },
     "offensive": {

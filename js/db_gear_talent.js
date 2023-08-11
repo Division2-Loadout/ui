@@ -1,5 +1,9 @@
 db_gear_talent = {
     "Backpack": {
+        "Adrenaline Rush": {
+            "quality": "A",
+            "desc": "When you are within 10m of an enemy, gain 20% (23%) bonus armor for 5s. Stacks up to 3 times. Cooldown: 5s"
+        },
         "Bloodsucker": {
             "quality": "A",
             "desc": "Killing an enemy adds and refreshes a stack of +10% bonus armor for 10 seconds. Max stack is 10."
