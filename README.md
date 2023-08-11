@@ -54,6 +54,7 @@ If you find this tool useful, feel free to make a request and we will try to wor
 - **Clone**: Make a copy of an existent loadout into a new name.
 - **Save**: Save changes.
 - **Share**: Share a short-link with the loadout.
+- **Search**: Search & Download builds stored on the GitHub repository of this project (Folder **builds**).
 - **Import**: Import a backup. (Import from JSON data)
 - **Export**: Make a backup. (saved as a JSON file)
 - **Delete**: Deletes teh selected loadout.
