@@ -766,8 +766,12 @@ $(document).on("click", "[id^=btn_search_set_]", function() {
 });
 
 $(document).on("click", "#btn_search_build", function() {
-    v_url = "https://raw.githubusercontent.com/Division2-Loadout/ui/main/builds/index.json"
-    request_get(v_url)
+    if (Object.keys(db_search).length === 0) {
+        search_run()
+    }
+	
+    //v_url = "https://raw.githubusercontent.com/Division2-Loadout/ui/main/builds/index.json"
+    //request_get(v_url)
 });
 
 $(document).on("click", "#viewstats", function() {
