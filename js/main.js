@@ -2704,14 +2704,24 @@ function weapon_title() {
             //var $nr = $('<tr><td>A-' + b[i]['play_id'] + '</td><td>B-' + b[i]['question1']  + '</td></tr>');
             try {
                 console.log(db_search_filter[i])
+                v_source = db_search_filter[i]["source"]
+                if (v_source.includes("youtube.com")) {
+                    //v_source_icon = "film"
+                    v_source_icon = "link"
+                } else {
+                    v_source_icon = "link"
+                }
                 content  = `<tr>`
-                content += `    <td nowrap c-lass="search_td" style="padding-left: 0px; padding-right: 0px; padding-top: 2pxpx;">`
+                content += `    <td nowrap c-lass="search_td" style="padding-left: 0px; padding-right: 0px; padding-top: 2px;">`
                 content += `        <a id="btn_search_set_${db_search_filter[i]["id"]}" href="#" c-lass="menu_icon" style="color: #ccc" title="Download"><span class="glyphicon glyphicon-download-alt"></span></a>`
                 content += `    </td>`
-                content += `    <td nowrap class="search_td" style="margin-left: 0px;">${db_search_filter[i]["id"]}</td>`
+                //content += `    <td nowrap class="search_td" style="margin-left: 0px;">${db_search_filter[i]["id"]}</td>`
                 content += `    <td nowrap class="search_td">${db_search_filter[i]["date"]}</td>`
                 content += `    <td nowrap class="search_td">${db_search_filter[i]["credit"]}</td>`
                 content += `    <td class="search_td" style="width: 300px">${db_search_filter[i]["desc"].toLowerCase()}</td>`
+                content += `    <td nowrap c-lass="search_td" style="padding-left: 6px; padding-right: 0px; padding-top: 2px;">`
+                content += `        <a href="${v_source}" target="_blank" c-lass="menu_icon" style="color: #ccc" title="Download"><span class="glyphicon glyphicon-${v_source_icon}"></span></a>`
+                content += `    </td>`
                 content += `</tr>`
                 table.append(content);
             } catch {
