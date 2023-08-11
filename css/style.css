@@ -578,3 +578,19 @@ a:visited {
 .modal-backdrop.in{
   opacity:.5;
 }
+
+
+.menu_container {
+  width: 890px;
+  text-align: right;
+}
+.menu {
+  display: inline-block;
+  color: #6e6e6e;
+  font-family: monospace;
+  font-size:16px;
+  margin-left: auto; 
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #222222a6;
+}
