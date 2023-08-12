@@ -897,6 +897,7 @@ $(document).on("click", "#btn_view_mode", function() {
 $(document).on("click", "#btn_build_share", function() {
     v_url = window.location.href
     v_url = window.location.href.split('?')[0];
+    v_url = v_url.replace("#", "")
     v_data = Base64.encode(JSON.stringify(build_template))
 
     v_url = `${v_url}?build=${v_data}`
