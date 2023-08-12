@@ -1989,9 +1989,13 @@ function weapon_title() {
 
                         if (v_socket_name !== "") {
                             $(`#${v_id_socket}`).val(v_socket_name)
-                            $(`#${v_id_socket}_value`).val(v_socket_value)
+                            if (v_socket_value !== v_socket_max) {
+                                $(`#${v_id_socket}_value`).val(v_socket_value)
+                            }
+                            $(`#${v_id_socket}_value`).attr("max", v_socket_max)
+                            $(`#${v_id_socket}_value`).attr("placeholder", v_socket_max)
                             $(`#${v_id_socket}_icon`).attr("src", `icons/${v_socket_icon}`)
-
+                            
                             $(`#${v_id_socket}`).removeClass()
                             $(`#${v_id_socket}`).addClass(`text_${v_socket_class}`)
 
@@ -2339,6 +2343,7 @@ function weapon_title() {
         v_class_type = get_class_type(v_socket_name) // example: defensive|offensive|utility
         //console.log(`v_class_type: ${v_class_type}`)
         v_socket_default = get_socket_default(v_socket_name)
+        v_socket_max = v_socket_default["max"]
 
         console.log(v_id)
         console.log(v_socket_type, v_class_type)
@@ -2352,24 +2357,28 @@ function weapon_title() {
         if (!v_id.endsWith("_value")) {
             $(`#${v_id}`).removeClass()
             $(`#${v_id}`).addClass(`text_${v_class_type}`)
+
+            v_socket_value = ""
+        } else {
+            v_socket_value = $(`#${v_socket_name_id}_value`).val()
         }
         
-        v_id = v_id.replace("_value", "")
-        v_socket_name = $(`#${v_id}`).val()
-        v_socket_name = sanitizeString(v_socket_name)
+        //v_id = v_id.replace("_value", "")
+        //v_socket_name = $(`#${v_id}`).val()
+        //v_socket_name = sanitizeString(v_socket_name)
 
-        v_socket_value = $(`#${v_id}_value`).val()
         if (v_socket_type !== "talent") {
             v_socket_value = sanitizeString(v_socket_value)
             if (v_socket_value === "" || v_socket_value === undefined) {
-                v_socket_value = $(`#${v_id}`).find(':selected').data('max')
-                $(`#${v_id}_value`).attr("placeholder", v_socket_value)
+                v_socket_value = $(`#${v_socket_name_id}`).find(':selected').data('max')
+                $(`#${v_socket_name_id}_value`).attr("placeholder", v_socket_max)
             }
 
             // FIX placeholder and max
-            v_socket_max = v_socket_default["max"]
-            $(`#${v_id}_value`).attr("max", v_socket_max)
-            $(`#${v_id}_value`).attr("placeholder", v_socket_max)
+            //v_socket_max = v_socket_default["max"]
+            $(`#${v_socket_name_id}_value`).attr("max", v_socket_max)
+            $(`#${v_socket_name_id}_value`).attr("placeholder", v_socket_max)
+
         }
         
         /*
