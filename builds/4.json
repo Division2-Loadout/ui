@@ -119,7 +119,7 @@
         "name": "Armor",
         "socket": "core",
         "class": "defensive",
-        "value": "1"
+        "value": 170000
       },
       "socket2": {
         "name": "Critical Hit Damage",
