@@ -1,0 +1,177 @@
+{
+    "name": "2023-08-06 SpaceX Package",
+    "desc": "Anti Shock Meta Darkzone Build - Division 2 https://www.youtube.com/watch?v=QMGWj-F_-DU",
+    "stored": "1",
+    "tag": "build",
+    "specialization": {},
+    "slot_primary": {
+      "item": "FAMAS 2010"
+    },
+    "slot_secondary": {
+      "item": "St. Elmo's Engine"
+    },
+    "slot_sidearm": {},
+    "slot_mask": {
+      "item": "Yaahl Gear",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket4": {
+        "name": "Critical Hit Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_backpack": {
+      "item": "Ceska Vyroba s.r.o.",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket3": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket4": {
+        "name": "Critical Hit Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket5": {
+        "name": "Adrenaline Rush",
+        "socket": "talent",
+        "class": null
+      }
+    },
+    "slot_chest": {
+      "item": "Fenris Group AB",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket3": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket4": {
+        "name": "Critical Hit Chance",
+        "socket": "mod",
+        "class": "offensive",
+        "value": "12"
+      },
+      "socket5": {
+        "name": "Unbreakable",
+        "socket": "talent",
+        "class": null
+      }
+    },
+    "slot_gloves": {
+      "item": "Contractor's Gloves",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Damage to Armor",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 8
+      },
+      "socket3": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_holster": {
+      "item": "Shocker Punch",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Explosive Resistance",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket5": {
+        "name": "Defibrillator",
+        "socket": "talent",
+        "class": "",
+        "value": 0
+      }
+    },
+    "slot_kneepads": {
+      "item": "Fox's Prayer",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Damage to TOC",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 8
+      },
+      "socket3": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_specialization": {
+      "item": "Firewall"
+    }
+  }

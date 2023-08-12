@@ -54,5 +54,13 @@
         "source": "https://www.youtube.com/watch?v=lV55fYfiV9Q",
         "credit": "The Gaming Brigade",
         "date": "2023-08-06"
+    },
+    "8": {
+        "name": "2023-08-06 SpaceX Package",
+        "desc": "Anti Shock Meta Darkzone Build - Division 2",
+        "path": "builds/",
+        "source": "https://www.youtube.com/watch?v=QMGWj-F_-DU",
+        "credit": "SpaceX Package",
+        "date": "2023-08-06"
     }
 }
