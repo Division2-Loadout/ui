@@ -693,6 +693,8 @@ function load_shared_build() {
             $("#debug_share").val("ERROR JSON")
             console.log(err)
         }
+    } else {
+        get_build_github_param()
     }
 }
 
@@ -752,8 +754,23 @@ function request_get(v_url, v_type="json") {
     });
 }
 
-$(document).on("click", "[id^=btn_search_set_]", function() {
-    v_id = $(this).attr("id").replace("btn_search_set_", "")
+function isNumeric(n) {
+return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function get_build_github_param() {
+    v_qstring = window.location.search;
+    urlParams = new URLSearchParams(v_qstring);
+
+    v_id = urlParams.get('id')
+    console.log(v_id)
+
+    if (v_id !== "" && v_id !== null && isNumeric(v_id)) {
+        load_build_github(v_id)
+    }
+}
+
+function load_build_github(v_id) {
     v_url = `https://raw.githubusercontent.com/Division2-Loadout/ui/main/builds/${v_id}.json`
     
     $.getJSON( v_url, function( data ) {
@@ -762,7 +779,11 @@ $(document).on("click", "[id^=btn_search_set_]", function() {
         build_template = data
         load_build_template(build_template)
     });
+}
 
+$(document).on("click", "[id^=btn_search_set_]", function() {
+    v_id = $(this).attr("id").replace("btn_search_set_", "")
+    load_build_github(v_id)
 });
 
 $(document).on("click", "#btn_search_build", function() {
