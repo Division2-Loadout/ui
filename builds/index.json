@@ -25,7 +25,7 @@
     },
     "4": {
         "name": "2023-08-08 NothingButSkillz 2.0",
-        "desc": "The Perfect Build for the Final Manhunt in the Division 2 (Year 5 Season 1) on Heroic & 4 Directives",
+        "desc": "The Perfect Build for the Final Manhunt (Year 5 Season 1) on Heroic & 4 Directives",
         "path": "builds/",
         "source": "https://www.youtube.com/watch?v=zQxZcZvAWXc",
         "credit": "NothingButSkillz 2.0",
@@ -33,7 +33,7 @@
     },
     "5": {
         "name": "2023-08-07 Kamikazevondoom",
-        "desc": "HIGHEST BASE DAMAGE POSSIBLE! - The Division 2 St. Elmo's Engine Build",
+        "desc": "HIGHEST BASE DAMAGE POSSIBLE! - St. Elmo's Engine Build",
         "path": "builds/",
         "source": "https://www.youtube.com/watch?v=po_M-G4thSY",
         "credit": "Kamikazevondoom",
@@ -41,7 +41,7 @@
     },
     "6": {
         "name": "2023-08-06 Kamikazevondoom",
-        "desc": "SHOCK EVERYONE with this 4M ARMOR TANK BUILD! - The Division 2 Catharsis Build",
+        "desc": "SHOCK EVERYONE with this 4M ARMOR TANK BUILD! - The Catharsis Build",
         "path": "builds/",
         "source": "https://www.youtube.com/watch?v=lgZe_nifyck",
         "credit": "Kamikazevondoom",
@@ -49,7 +49,7 @@
     },
     "7": {
         "name": "2023-08-06 The Gaming Brigade",
-        "desc": "My Favorite Countdown Build! - High Damage & Armor - Solo/Group PVE Build - Division 2 Tips & Tricks",
+        "desc": "My Favorite Countdown Build! - High Damage & Armor - Solo/Group PVE Build - Tips & Tricks",
         "path": "builds/",
         "source": "https://www.youtube.com/watch?v=lV55fYfiV9Q",
         "credit": "The Gaming Brigade",
@@ -57,10 +57,18 @@
     },
     "8": {
         "name": "2023-08-06 SpaceX Package",
-        "desc": "Anti Shock Meta Darkzone Build - Division 2",
+        "desc": "Anti Shock Meta Darkzone Build",
         "path": "builds/",
         "source": "https://www.youtube.com/watch?v=QMGWj-F_-DU",
         "credit": "SpaceX Package",
         "date": "2023-08-06"
+    },
+    "9": {
+        "name": "2023-08-11 Kamikazevondoom",
+        "desc": "Dancing in the street with Manhunt Rank 98! St. Elmo's Dark Zone Build",
+        "path": "builds/",
+        "source": "https://www.youtube.com/watch?v=AivJ_WgdA3U",
+        "credit": "Kamikazevondoom",
+        "date": "2023-08-10"
     }
 }

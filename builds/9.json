@@ -1,0 +1,165 @@
+{
+    "name": "2023-08-11 Kamikazevondoom",
+    "desc": "Dancing in the street with Manhunt Rank 98 St. Elmos Dark Zone Build - The Division 2 https://www.youtube.com/watch?v=AivJ_WgdA3U",
+    "stored": "1",
+    "tag": "build",
+    "specialization": {},
+    "slot_primary": {
+      "item": "St. Elmo's Engine"
+    },
+    "slot_secondary": {},
+    "slot_sidearm": {},
+    "slot_mask": {
+      "item": "The Hollow Man",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Health Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket4": {
+        "name": "Shock Resistance",
+        "socket": "mod",
+        "class": "defensive",
+        "value": 10
+      }
+    },
+    "slot_backpack": {
+      "item": "NinjaBike Messenger Backpack",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket3": {
+        "name": "Skill Tier",
+        "socket": "core",
+        "class": "utility",
+        "value": 1
+      },
+      "socket4": {
+        "name": "Shock Resistance",
+        "socket": "mod",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket5": {
+        "name": "Parkour!",
+        "socket": "talent",
+        "class": "",
+        "value": 0
+      }
+    },
+    "slot_chest": {
+      "item": "Yaahl Gear",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket4": {
+        "name": "Pulse Resistance",
+        "socket": "mod",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket5": {
+        "name": "Unbreakable",
+        "socket": "talent",
+        "class": null,
+        "value": ""
+      }
+    },
+    "slot_gloves": {
+      "item": "Heartbreaker",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      }
+    },
+    "slot_holster": {
+      "item": "Picaros Holster",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Weapon Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket3": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      }
+    },
+    "slot_kneepads": {
+      "item": "Fox's Prayer",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Damage to TOC",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 8
+      },
+      "socket3": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      }
+    },
+    "slot_specialization": {
+      "item": "Technician"
+    }
+  }
