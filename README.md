@@ -109,7 +109,7 @@ You can find some of the direct links to the builds on the Twitter account, or d
 <br><br>
 
 ### **TODO**: 
-- ADD Bonus Gear to stats.
+- ADD Gear Bonus to stats.
 - ADD Keener's Watch values to stats.
 - ADD Specialization values to stats.
 
