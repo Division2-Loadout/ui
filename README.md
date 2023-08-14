@@ -98,10 +98,16 @@ If there are no loadouts in the list, the demos will return.<br><br>
 
 <br>
 
+### **TODO**: 
+- ADD Bonus Gear to stats.
+- ADD Keener's Watch values to stats.
+
+<br>
+
 ### **Disclaimer**: 
 The weapon and specialization sections don't have any impact on the stats numbers for the moment. <br>
 
-The stats block (offensive/defensive/utility/DMG/Armor/Health) is a basic represenation of the values extracted from the gear. 
+The stats block (offensive/defensive/utility/DMG/Armor/Health) is a basic representation of the values extracted from the gear. 
 For the moment, this is not considering some bonus values.
 
 <br><br>
