@@ -101,6 +101,7 @@ If there are no loadouts in the list, the demos will return.<br><br>
 ### **TODO**: 
 - ADD Bonus Gear to stats.
 - ADD Keener's Watch values to stats.
+- ADD Specialization values to stats.
 
 <br>
 
