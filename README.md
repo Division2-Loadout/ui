@@ -98,6 +98,14 @@ If there are no loadouts in the list, the demos will return.<br><br>
 
 <br>
 
+You can get builds directly from the GitHub repository by using the Search Builds button.
+We are copying these builds from content creators and others. You can download the build directly into the tool, access the video/link and search by the description.
+You can find some of the direct links to the builds on the Twitter account, or directly from the tool UI.
+
+![Screenshot](screenshots/github_builds.png)
+
+<br>
+
 ### **TODO**: 
 - ADD Bonus Gear to stats.
 - ADD Keener's Watch values to stats.
