@@ -110,6 +110,22 @@
                         <div id="slot_specialization" class="build_specialization_body"></div>
                     </div>
                 </div>
+                <div class="inline" style="vertical-align: top; margin-left: 14px; margin-top: 70px;">
+                    <table>
+                        <tr>
+                            <td class="stats_text_value"><span id="stats_dmg">0</span></td>
+                            <td class="stats_text">DMG</td>
+                        </tr>
+                        <tr>
+                            <td class="stats_text_value"><span id="stats_armor">0</span></td>
+                            <td class="stats_text">Armor</td>
+                        </tr>
+                        <tr>
+                            <td class="stats_text_value"><span id="stats_health">0</span></td>
+                            <td class="stats_text">Health</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             
             <br><br>
@@ -195,41 +211,41 @@
                     </td>
                     <td>
                         <div>
-                            <table>
-                                <tr>
-                                    <td class="stats_text_value"><span id="stats_dmg">0</span></td>
-                                    <td class="stats_text">DMG</td>
-                                </tr>
-                                <tr>
-                                    <td class="stats_text_value"><span id="stats_armor">0</span></td>
-                                    <td class="stats_text">Armor</td>
-                                </tr>
-                                <tr>
-                                    <td class="stats_text_value"><span id="stats_health">0</span></td>
-                                    <td class="stats_text">Health</td>
-                                </tr>
-                            </table>
-                            <div style="border-bottom: 1px solid rgb(51, 51, 51); margin-top: 6px; margin-bottom: 6px; width: 200px;"></div>
-                            <div style="margin-left: 20px; width: 160px;">
-                                <div>
-                                    <div class="inline" style="width: 16px;"><img src="icons/offensive1.png" style="width: 16px;"></div>
-                                    <div class="inline build_total_attribute_content" id="total_core_offensive" style="width: 20px; margin-right: 50px;">0</div>
-                                    <div class="inline" style="width: 16px;"><img src="icons/offensive2.png" style="width: 16px;"></div>
-                                    <div class="inline build_total_attribute_content" id="total_attr_offensive" style="width: 20px;">0</div>
+                            <div id="btn_skill_1" class="inline pointer" style="vertical-align: top;" title="[ in-progress ]">
+                                <div class="mini_block" style="vertical-align:middle; text-align:center; margin-bottom: 5px;">
+                                    <img src="icons/skills/chem_firestarter.png" style="opacity: 0.6; width: 60px; display: block; margin: auto auto; padding-top: 5px;">
                                 </div>
-                                <div>
-                                    <div class="inline" style="width: 16px;"><img src="icons/defensive1.png" style="width: 16px;"></div>
-                                    <div class="inline build_total_attribute_content" id="total_core_defensive" style="width: 20px; margin-right: 50px;">0</div>
-                                    <div class="inline" style="width: 16px;"><img src="icons/defensive2.png" style="width: 16px;"></div>
-                                    <div class="inline build_total_attribute_content" id="total_attr_defensive" style="width: 20px;">0</div>
-                                </div>
-                                <div>
-                                    <div class="inline" style="width: 16px;"><img src="icons/utility1.png" style="width: 16px;"></div>
-                                    <div class="inline build_total_attribute_content" id="total_core_utility" style="width: 20px; margin-right: 50px;">0</div>
-                                    <div class="inline" style="width: 16px;"><img src="icons/utility2.png" style="width: 16px;"></div>
-                                    <div class="inline build_total_attribute_content" id="total_attr_utility" style="width: 20px;">0</div>
+                                <div class="mini_block pointer" style="vertical-align:middle; text-align:center" title="[ in-progress ]">
+                                    <img src="icons/skills/hive_restorer.png" style="opacity: 0.6; width: 60px; display: block; margin: auto auto; padding-top: 5px;">
                                 </div>
                             </div>
+                            <div id="btn_skill_2" class="inline" style="vertical-align: top;">
+                                <div class="mini_block" style="margin-bottom: 5px;">
+                                    <div>
+                                        <div class="inline" style="width: 16px;"><img src="icons/offensive1.png" style="width: 16px; margin-right: 2px; "></div>
+                                        <div class="inline build_total_attribute_content" id="total_core_offensive" style="width: 16px; margin-right: 10px;">0</div>
+                                        <div class="inline" style="width: 16px;"><img src="icons/offensive2.png" style="width: 16px;"></div>
+                                        <div class="inline build_total_attribute_content" id="total_attr_offensive" style="width: 16px;">0</div>
+                                    </div>
+                                    <div>
+                                        <div class="inline" style="width: 16px;"><img src="icons/defensive1.png" style="width: 16px;"></div>
+                                        <div class="inline build_total_attribute_content" id="total_core_defensive" style="width: 16px; margin-right: 10px;">0</div>
+                                        <div class="inline" style="width: 16px;"><img src="icons/defensive2.png" style="width: 16px;"></div>
+                                        <div class="inline build_total_attribute_content" id="total_attr_defensive" style="width: 16px;">0</div>
+                                    </div>
+                                    <div>
+                                        <div class="inline" style="width: 16px;"><img src="icons/utility1.png" style="width: 16px;"></div>
+                                        <div class="inline build_total_attribute_content" id="total_core_utility" style="width: 16px; margin-right: 10px;">0</div>
+                                        <div class="inline" style="width: 16px;"><img src="icons/utility2.png" style="width: 16px;"></div>
+                                        <div class="inline build_total_attribute_content" id="total_attr_utility" style="width: 16px;">0</div>
+                                    </div>
+                                </div>
+                                <div id="btn_shd_watch" class="mini_block pointer" style="padding-top: 10px;" title="[ in-progress ]">
+                                    <img src="icons/shd.png" style="opacity: 0.6; width: 60px;">
+                                </div>
+                            </div>
+                            
+                            
                         </div>
                     </td>
                 </tr>
@@ -319,6 +335,68 @@
                         <tbody id="search_table"></tbody>
                     </table>
                 </div>
+
+            <div style="width: 100%; text-align: right;">
+                <button type="button" c-lass="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_shd_watch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 800px;" role="document">
+        <div style="background-color: rgba(0, 0, 0, 0.727); border:1px solid rgb(88, 88, 88);"  class="modal-content">
+            <div style="height: 40px; border-bottom: 0px solid rgb(88, 88, 88);" class="modal-header">
+            <h4 class="modal-title text_title" id="exampleModalLabel">Search Build</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            
+                <table>
+                    <tr>
+                        <td>
+                            <div style="font-size: 14px; margin-bottom: 10px; margin-right: 20px;"> 
+                                <div class="shd_margin_bottom"><img src="icons/offensive1.png" style="width: 16px; margin-right: 5px; margin-bottom: 5px;"> Offense</div> 
+                                <input id="shd_offensive_1" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Weapon Damage</span><br>
+                                <input id="shd_offensive_2" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Headshot Damage</span><br>
+                                <input id="shd_offensive_3" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Critical Hit Chance</span><br>
+                                <input id="shd_offensive_4" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Critical Hit Damage</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-size: 14px;"> 
+                                <div class="shd_margin_bottom"><img src="icons/defensive1.png" style="width: 16px; margin-right: 5px; margin-bottom: 5px;">Defense</div> 
+                                <input id="shd_defensive_1" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Total Armor</span><br>
+                                <input id="shd_defensive_2" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Explosive Resistance</span><br>
+                                <input id="shd_defensive_3" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Hazard Protection</span><br>
+                                <input id="shd_defensive_4" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Health</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="font-size: 14px;"> 
+                                <div class="shd_margin_bottom"><img src="icons/utility1.png" style="width: 16px; margin-right: 5px; margin-bottom: 5px;"> Utility</div>
+                                <input id="shd_utility_1" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Skill Haste</span><br>
+                                <input id="shd_utility_2" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Skill Damage</span><br>
+                                <input id="shd_utility_3" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Skill Duration</span><br>
+                                <input id="shd_utility_4" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Repair Skills</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-size: 14px;"> 
+                                <div class="shd_margin_bottom"><img src="icons/handling1.png" style="width: 16px; margin-right: 5px; margin-bottom: 5px;"> Handling</div>
+                                <input id="shd_handling_1" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Reload Speed</span><br>
+                                <input id="shd_handling_2" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Stability</span><br>
+                                <input id="shd_handling_3" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Accuracy</span><br>
+                                <input id="shd_handling_4" type="number" min="0" max="50" style="width: 40px; height: 21px;"><span class="inline shd_margin_bottom" style="margin-left: 5px;">Ammo Capacity</span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 
             <div style="width: 100%; text-align: right;">
                 <button type="button" c-lass="btn btn-secondary" data-dismiss="modal">Close</button>

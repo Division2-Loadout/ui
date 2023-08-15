@@ -733,6 +733,26 @@ function show_msg(v_msg) {
     
 }
 
+function show_alert(v_msg) {
+    v_msg = sanitizeString(v_msg)
+    alert(v_msg)
+}
+
+$(document).on("click", "#btn_skill_1", function() {
+    show_alert("[ work in progress ]")
+    return false
+});
+
+$(document).on("click", "#btn_skill_2", function() {
+    show_alert("[ work in progress ]")
+    return false
+});
+
+$(document).on("click", "#btn_shd_watch", function() {
+    show_alert("[ work in progress ]")
+    return false
+});
+
 function set_build_stored(v_build_stored) {
     if (build_template["name"] !== "" ) {
         build_template["stored"] = v_build_stored

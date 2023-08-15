@@ -225,6 +225,22 @@ a:visited {
   b-order:1px solid rgba(139, 139, 139, 0.473);
   height: 150px;
   width: 300px;
+
+  background:
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 3px 3px;
+
+  b-order-bottom-left-radius: 1px;
+  b-order-bottom-right-radius: 1px;
 }
 
 .build_weapon_title {
@@ -239,6 +255,19 @@ a:visited {
   border:1px solid #ffe3477c;
   height: 80px;
   width: 300px;
+
+  background:
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 3px 3px;
 }
 
 .build_sidearm_title {
@@ -253,6 +282,19 @@ a:visited {
   border:1px solid #ffe3477c;
   height: 80px;
   width: 260px;
+
+  background:
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 3px 3px;
 }
 
 .build_specialization_header {
@@ -270,6 +312,19 @@ a:visited {
   font-size: 14px; 
   f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
   font-family: Consolas, monaco, monospace;
+
+  background:
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 3px 3px;
 }
 
 .build_total_attribute_header {
@@ -305,6 +360,19 @@ a:visited {
   width: 260px;
   font-size: 14px; 
   font-family: Consolas, monaco, monospace;
+
+  background:
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+    linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+    linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 3px 3px;
 }
 
 .custom-input {
@@ -494,17 +562,17 @@ a:visited {
 .stats_text {
   padding-left: 14px;
   margin-left: 10px;
-  font-size: 16px; 
+  font-size: 18px; 
   font-family: Consolas, monaco, monospace;
   f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
   
 }
 .stats_text_value {
-  width: 70px;
+  width: 80px;
   text-align: right;
   padding-left: 14px;
   margin-left: 10px;
-  font-size: 16px; 
+  font-size: 18px; 
   font-family: Consolas, monaco, monospace;
   f-ont-family: roboto condensed,Helvetica,Arial,sans-serif;
   color: #fc850e;
@@ -593,4 +661,43 @@ a:visited {
   padding-left: 5px;
   padding-right: 5px;
   background-color: #222222a6;
+}
+
+.corners {
+  --borderWidth: 5px;
+  background-repeat: no-repeat;
+  background-origin: padding-box, border-box, border-box, border-box, border-box;
+  background-image: linear-gradient(0deg, transparent 0%, transparent 100%), linear-gradient(0deg, green 0%, green 100%), linear-gradient(0deg, red 0%, red 100%), linear-gradient(0deg, yellow 0%, yellow 100%), linear-gradient(0deg, blue 0%, blue 100%);
+  width: 40px;
+  height: 40px;
+  border-width: var(--borderWidth);
+  border-style: solid;
+  border-color: transparent;
+  background-size: cover, var(--borderWidth) var(--borderWidth), var(--borderWidth) var(--borderWidth), var(--borderWidth) var(--borderWidth), var(--borderWidth) var(--borderWidth);
+  background-position: center,top left, top right, bottom right, bottom left;
+ }
+
+ .mini_block {
+  padding: 5px;
+  border:1px solid rgba(139, 139, 139, 0.308);
+  height: 85px;
+  width: 125px;
+  text-align: center;
+  vertical-align: middle;
+
+  background:
+      linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+      linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+      linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+      linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%,
+      linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+      linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+      linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+      linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 3px 3px;
+}
+.shd_margin_bottom {
+  margin-bottom: 2px;
 }
