@@ -1,0 +1,179 @@
+{
+    "name": "2023-08-03 Theseus Badger",
+    "desc": "The Division 2 Best ST ELMO DPS Haz Build with 100 Shock Immunity to Dominate PVP https://www.youtube.com/watch?v=Ge0TIBiRND8",
+    "stored": "1",
+    "tag": "build",
+    "specialization": {},
+    "slot_primary": {
+      "item": "St. Elmo's Engine"
+    },
+    "slot_secondary": {
+      "item": "Military M870"
+    },
+    "slot_sidearm": {},
+    "slot_mask": {
+      "item": "Coyote's Mask",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket3": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket4": {
+        "name": "Critical Hit Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket5": {
+        "name": "Pack Instincts",
+        "socket": "talent",
+        "class": "",
+        "value": 0
+      }
+    },
+    "slot_backpack": {
+      "item": "Ceska Vyroba s.r.o.",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket3": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket4": {
+        "name": "Critical Hit Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket5": {
+        "name": "Vigilance",
+        "socket": "talent",
+        "class": null,
+        "value": ""
+      }
+    },
+    "slot_chest": {
+      "item": "Ceska Vyroba s.r.o.",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket4": {
+        "name": "Critical Hit Chance",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket5": {
+        "name": "Unbreakable",
+        "socket": "talent",
+        "class": null,
+        "value": ""
+      }
+    },
+    "slot_gloves": {
+      "item": "Electrique",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket3": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      }
+    },
+    "slot_holster": {
+      "item": "Electrique",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      }
+    },
+    "slot_kneepads": {
+      "item": "Yaahl Gear",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Hazard Protection",
+        "socket": "attr",
+        "class": "defensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_specialization": {
+      "item": "Firewall"
+    }
+  }

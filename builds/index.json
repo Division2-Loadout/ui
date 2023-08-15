@@ -70,5 +70,13 @@
         "source": "https://www.youtube.com/watch?v=AivJ_WgdA3U",
         "credit": "Kamikazevondoom",
         "date": "2023-08-10"
+    },
+    "10": {
+        "name": "2023-08-03 Theseus Badger",
+        "desc": "The Division 2 Best ST ELMO DPS Haz Build with 100 Shock Immunity to Dominate PVP",
+        "path": "builds/",
+        "source": "https://www.youtube.com/watch?v=Ge0TIBiRND8",
+        "credit": "Theseus Badger",
+        "date": "2023-08-03"
     }
 }
