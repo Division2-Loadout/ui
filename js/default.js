@@ -13,6 +13,7 @@ var css_socket_value_width = 65
 var view_mode = "bars"
 var v_build_stored = "1"
 var v_build_tag = "loadout"
+var v_skill_slot = ""
 
 // SEARCH BUILD
 var db_search = {}
@@ -27,7 +28,9 @@ var build_template = {
     "desc": "",
     "stored": "",
     "tag": "",
-    "specialization": {},
+    "slot_specialization": {},
+    "slot_skill1": {},
+    "slot_skill2": {},
     "slot_primary": {},
     "slot_secondary": {},
     "slot_sidearm": {},

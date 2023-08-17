@@ -738,21 +738,6 @@ function show_alert(v_msg) {
     alert(v_msg)
 }
 
-$(document).on("click", "#btn_skill_1", function() {
-    show_alert("[ work in progress ]")
-    return false
-});
-
-$(document).on("click", "#btn_skill_2", function() {
-    show_alert("[ work in progress ]")
-    return false
-});
-
-$(document).on("click", "#btn_shd_watch", function() {
-    show_alert("[ work in progress ]")
-    return false
-});
-
 function set_build_stored(v_build_stored) {
     if (build_template["name"] !== "" ) {
         build_template["stored"] = v_build_stored
@@ -1088,6 +1073,9 @@ function reset_build() {
     $("#debug_build").html("")
     $("#debug_build").val("")
     $(`#slot_specialization`).empty()
+    $(`#slot_skill1`).attr("src", "icons/skills/none.png")
+    $(`#slot_skill2`).attr("src", "icons/skills/none.png")
+    v_skill_slot = ""
 
     $("#field_build_name").val("")
     $("#field_build_desc").val("")
@@ -2100,6 +2088,17 @@ function weapon_title() {
             $("#stats_dmg").html(`+${v_stats_dmg.toFixed(1)}%`)
             $("#stats_armor").html(nFormatter(v_stats_armor))
             $("#stats_health").html(nFormatter(v_stats_health))
+
+            // SKILLS
+            if (["slot_skill1", "slot_skill2"].includes(v_slot_id)) {
+                v_skill_name = build_template[v_slot_id]["item"]
+                v_skill_filename = db_skill[v_skill_name]["filename"]
+                if (v_skill_filename === "") {
+                    v_skill_filename = "none"
+                }
+                v_skill_slot = v_slot_id.replace("slot_skill", "")
+                $(`#slot_skill${v_skill_slot}`).attr("src", `icons/skills/${v_skill_filename}.png`)
+            }
         }
 
         console.log(db_stats)
@@ -2813,4 +2812,71 @@ function weapon_title() {
             table.empty();
             search_list(pre,limit); 
         }
+    });
+
+    $(document).on("click", "#btn_skill_1", function() {
+        //show_alert("[ work in progress ]")
+        v_skill_slot = "1"
+        jQuery.noConflict();
+        $("#modal_skill").modal('show');
+        return false
+    });
+    
+    $(document).on("click", "#btn_skill_2", function() {
+        //show_alert("[ work in progress ]")
+        v_skill_slot = "2"
+        jQuery.noConflict();
+        $("#modal_skill").modal('show');
+        return false
+    });
+    
+    $(document).on("click", "#btn_shd_watch", function() {
+        show_alert("[ work in progress ]")
+        return false
+    });
+
+    function load_db_skill() {
+        v_class_latest = ""
+        for (let v_key in db_skill) {
+            console.log(v_key)
+            if (v_class_latest !== "" && v_class_latest !== db_skill[v_key]["class"]) {
+                $("#skill_list").append("<br>")
+            }
+            content  = `<div id="skill_${db_skill[v_key]["filename"]}" data-name="${db_skill[v_key]["name"]}" class="skill_block pointer inline" title="${db_skill[v_key]["name"]}">`
+            content += `<img src="icons/skills/${db_skill[v_key]["filename"]}.png" style="width: 50px; margin-right: 5px; margin-bottom: 5px;">`
+            content += `</div>`
+            $("#skill_list").append(content)
+            v_class_latest = db_skill[v_key]["class"]
+        }
+    }
+
+    /*
+    $(document).on("click", "[id^=slot_skill]", function() {
+        v_obj = $(this)
+        v_skill_slot = v_obj.attr("id").replace("slot_skill", "")
+    });
+    */
+
+    $(document).on("click", "[id^=skill_]", function() {
+        v_obj = $(this)
+        v_skill_filename = v_obj.attr("id").replace("skill_", "")
+        v_skill_name = v_obj.data("name")
+        console.log(v_skill_name)
+        if (v_skill_name !== undefined) {
+
+            if (v_skill_slot === "1" || v_skill_slot === "2") {
+                if (!("slot_skill1" in build_template) || !("slot_skill2" in build_template)) {
+                    build_template["slot_skill1"] = {}
+                    build_template["slot_skill2"] = {}
+                }
+                $(`#slot_skill${v_skill_slot}`).attr("src", `icons/skills/${v_skill_filename}.png`)
+                build_template[`slot_skill${v_skill_slot}`]["item"] = v_skill_name
+                debug_build_template()
+    
+            }
+            
+            $("#modal_skill .close").click()
+            return false
+        }
+        
     });

@@ -30,6 +30,7 @@
     <script src="js/db_gear_talent.js"></script>
     <script src="js/db_weapon.js"></script>
     <script src="js/db_specialization.js"></script>
+    <script src="js/db_skill.js"></script>
     <script src="js/default.js"></script>
     
 <body>
@@ -211,15 +212,15 @@
                     </td>
                     <td>
                         <div>
-                            <div id="btn_skill_1" class="inline pointer" style="vertical-align: top;" title="[ in-progress ]">
-                                <div class="mini_block" style="vertical-align:middle; text-align:center; margin-bottom: 5px;">
-                                    <img src="icons/skills/chem_firestarter.png" style="opacity: 0.6; width: 60px; display: block; margin: auto auto; padding-top: 5px;">
+                            <div class="inline" style="vertical-align: top;">
+                                <div id="btn_skill_1" class="mini_block pointer" title="[ skill 1 ]" style="vertical-align:middle; text-align:center; margin-bottom: 5px;">
+                                    <img id="slot_skill1" src="icons/skills/chem_firestarter.png" style="opacity: 0.6; width: 60px; display: block; margin: auto auto; padding-top: 5px;">
                                 </div>
-                                <div class="mini_block pointer" style="vertical-align:middle; text-align:center" title="[ in-progress ]">
-                                    <img src="icons/skills/hive_restorer.png" style="opacity: 0.6; width: 60px; display: block; margin: auto auto; padding-top: 5px;">
+                                <div id="btn_skill_2" class="mini_block pointer" title="[ skill 2 ]" style="vertical-align:middle; text-align:center" title="[ in-progress ]">
+                                    <img id="slot_skill2" src="icons/skills/hive_restorer.png" style="opacity: 0.6; width: 60px; display: block; margin: auto auto; padding-top: 5px;">
                                 </div>
                             </div>
-                            <div id="btn_skill_2" class="inline" style="vertical-align: top;">
+                            <div class="inline" style="vertical-align: top;">
                                 <div class="mini_block" style="margin-bottom: 5px;">
                                     <div>
                                         <div class="inline" style="width: 16px;"><img src="icons/offensive1.png" style="width: 16px; margin-right: 2px; "></div>
@@ -306,7 +307,7 @@
 
     <div class="modal fade" id="modal_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="width: 800px;" role="document">
-        <div style="background-color: rgba(0, 0, 0, 0.727); border:1px solid rgb(88, 88, 88);"  class="modal-content">
+        <div style="background-color: rgba(0, 0, 0, 0.9); border:1px solid rgb(88, 88, 88);"  class="modal-content">
             <div style="height: 40px; border-bottom: 0px solid rgb(88, 88, 88);" class="modal-header">
             <h4 class="modal-title text_title" id="exampleModalLabel">Search Build</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -406,8 +407,25 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal_skill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div style="background-color: rgba(0, 0, 0, 0.9); border:1px solid rgb(88, 88, 88);"  class="modal-content">
+            <div style="height: 40px; border-bottom: 0px solid rgb(88, 88, 88);" class="modal-header">
+            <h4 class="modal-title text_title" id="exampleModalLabel">Export Loadout</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div id="skill_list"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!-- Modal END -->
 
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FN64E3GLZL"></script>
     <script>
@@ -423,6 +441,7 @@
         build_db_weapon_key()
         build_db_gear_key()
         load_debug()
+        load_db_skill()
     </script>
     <script src="js/menu.js"></script>
 </body>
