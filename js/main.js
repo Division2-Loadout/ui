@@ -787,6 +787,7 @@ function load_build_github(v_id) {
 }
 
 $(document).on("click", "[id^=btn_search_set_]", function() {
+    reset_build()
     v_id = $(this).attr("id").replace("btn_search_set_", "")
     load_build_github(v_id)
 });
