@@ -151,6 +151,10 @@ db_gear_talent = {
         "Multithreaded Execution": {
             "quality": "S",
             "desc": "Increases Hackstep Protocol bonus armor from 50% to 100%."
+        },
+        "Point of Honor": {
+            "quality": "S",
+            "desc": "x"
         }
     },
     "Chest": {
@@ -309,6 +313,14 @@ db_gear_talent = {
         "Compiler Optimization": {
             "quality": "S",
             "desc": "Decreases Hackstep Protocol cooldown from 20 seconds to 15 seconds."
+        },
+        "Point of No Return": {
+            "quality": "S",
+            "desc": "x"
+        },
+        "Headhunter": {
+            "quality": "A",
+            "desc": "After killing an enemy with a headshot, your next weapon hit within 30s deal an additional 125% of that killing blow's damage. Damage is capped to 800% of your weapon damage. This is raised 1250% if your headshot damage is grater than 150%."
         }
     },
     "Exotic": {

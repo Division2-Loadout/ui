@@ -2093,7 +2093,18 @@ function weapon_title() {
             // SKILLS
             if (["slot_skill1", "slot_skill2"].includes(v_slot_id)) {
                 v_skill_name = build_template[v_slot_id]["item"]
-                v_skill_filename = db_skill[v_skill_name]["filename"]
+
+                try {
+                    v_skill_filename = db_skill[v_skill_name]["filename"]
+                } catch {
+                    console.log("ERROR SKILLS: ./")
+                    console.log(v_slot_id)
+                    console.log(v_skill_name)
+                    console.log(db_skill[v_skill_name])
+                    console.log("ERROR SKILLS: /.")
+                    v_skill_filename = ""
+                }
+                
                 if (v_skill_filename === "") {
                     v_skill_filename = "none"
                 }
@@ -2580,9 +2591,21 @@ function weapon_title() {
 
                             if (v_slot_id.replace("slot_", "") === "backpack") v_key_top = "Backpack"
                             else if (v_slot_id.replace("slot_", "") === "chest") v_key_top = "Chest"
+                            /*
                             for (let v_key_talent in db_gear_talent[v_key_top]) {
                                 if (!v_key_talent.startsWith("Perfect")) {
                                     v_option_list += `<option class="${v_class}">${v_key_talent}</option>`
+                                }
+                            }
+                            */
+                           
+                            // Get the sub key group and sort it alphabetically
+                            let sorted_talents = Object.keys(db_gear_talent[v_key_top]).sort();
+
+                            // Iterate through the sorted talents
+                            for (let v_key_talent of sorted_talents) {
+                                if (!v_key_talent.startsWith("Perfect")) {
+                                    v_option_list += `<option class="${v_class}">${v_key_talent}</option>`;
                                 }
                             }
 
