@@ -641,7 +641,10 @@ function load_debug() {
 }
 
 function url_shortener(v_url) {
-    v_url = `https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(v_url)}`
+    //v_url = `https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(v_url)}`
+    console.log(v_url)
+    v_url = `https://is.gd/create.php?format=json&url=${encodeURIComponent(v_url)}`;
+    console.log(v_url)
     $.ajaxSetup({async: false})
     $.getJSON( v_url, function( data ) {
         /*
@@ -649,8 +652,12 @@ function url_shortener(v_url) {
           console.log(key, val)
         });
         */
-        shortened = data.result["full_short_link"]
-        console.log(data)
+        
+        //shortened = data.result["full_short_link"]
+        //console.log(data)
+
+        shortened = data.shorturl;
+        console.log(shortened);
       });
     $.ajaxSetup({async: true})
     
