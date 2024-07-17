@@ -1,0 +1,166 @@
+{
+    "name": "2024-06-25 TuxedoBandido",
+    "desc": "Use This Rifle XP Farm Build and Watch Your Levels Soar https://youtu.be/MF8vu63XzF4?si=Zro05afvIGxRlJDr",
+    "stored": "1",
+    "tag": "build",
+    "slot_specialization": {
+      "item": "Sharpshooter"
+    },
+    "slot_skill1": {
+      "item": "Defender Drone"
+    },
+    "slot_skill2": {
+      "item": "Crusader Ballistic Shield"
+    },
+    "slot_primary": {
+      "item": "Classic M1A"
+    },
+    "slot_secondary": {
+      "item": "Nemesis"
+    },
+    "slot_sidearm": {},
+    "slot_mask": {
+      "item": "Breaking Point",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Headshot Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 10
+      },
+      "socket4": {
+        "name": "Headshot Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 10
+      }
+    },
+    "slot_backpack": {
+      "item": "Memento",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket3": {
+        "name": "Skill Tier",
+        "socket": "core",
+        "class": "utility",
+        "value": 1
+      },
+      "socket4": {
+        "name": "Headshot Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 10
+      },
+      "socket5": {
+        "name": "Kill Confirmed",
+        "socket": "talent",
+        "class": "",
+        "value": 0
+      }
+    },
+    "slot_chest": {
+      "item": "Zwiadowka Sp. z o.o",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Headshot Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 10
+      },
+      "socket3": {
+        "name": "Weapon Handling",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 8
+      },
+      "socket4": {
+        "name": "Headshot Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 10
+      },
+      "socket5": {
+        "name": "Headhunter",
+        "socket": "talent",
+        "class": null,
+        "value": ""
+      }
+    },
+    "slot_gloves": {
+      "item": "Eagle's Grasp",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Weapon Handling",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 8
+      },
+      "socket3": {
+        "name": "Headshot Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 10
+      }
+    },
+    "slot_holster": {
+      "item": "Breaking Point",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Headshot Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 10
+      }
+    },
+    "slot_kneepads": {
+      "item": "Fox's Prayer",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Damage to TOC",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 8
+      },
+      "socket3": {
+        "name": "Headshot Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 10
+      }
+    }
+  }
