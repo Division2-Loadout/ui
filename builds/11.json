@@ -1,0 +1,154 @@
+{
+    "name": "2024-07-15 SwoRDGaming",
+    "desc": "The BEST Chameleon Solo PvE Build For Year 6 Season 1 (2024) https://youtu.be/wgGCfyKc_bk?si=0s1wpq1T2_9vVG-y",
+    "stored": "1",
+    "tag": "build",
+    "slot_specialization": {
+      "item": "Gunner"
+    },
+    "slot_skill1": {
+      "item": "Crusader Ballistic Shield"
+    },
+    "slot_skill2": {
+      "item": "Holographic Distraction Decoy"
+    },
+    "slot_primary": {
+      "item": "Chameleon"
+    },
+    "slot_secondary": {
+      "item": "The Apartment"
+    },
+    "slot_sidearm": {},
+    "slot_mask": {
+      "item": "Grupo Sombra S.A.",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket3": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket4": {
+        "name": "Critical Hit Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_backpack": {
+      "item": "Striker's Battlegear",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket4": {
+        "name": "Critical Hit Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket5": {
+        "name": "Risk Management",
+        "socket": "talent",
+        "class": "",
+        "value": 0
+      }
+    },
+    "slot_chest": {
+      "item": "Fenris Group AB",
+      "socket1": {
+        "name": "Weapon Damage",
+        "socket": "core",
+        "class": "offensive",
+        "value": 15
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket3": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      },
+      "socket4": {
+        "name": "Critical Hit Damage",
+        "socket": "mod",
+        "class": "offensive",
+        "value": 12
+      },
+      "socket5": {
+        "name": "Obliterate",
+        "socket": "talent",
+        "class": null,
+        "value": ""
+      }
+    },
+    "slot_gloves": {
+      "item": "Striker's Battlegear",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Critical Hit Damage",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 12
+      }
+    },
+    "slot_holster": {
+      "item": "Striker's Battlegear",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      }
+    },
+    "slot_kneepads": {
+      "item": "Striker's Battlegear",
+      "socket1": {
+        "name": "Armor",
+        "socket": "core",
+        "class": "defensive",
+        "value": 170000
+      },
+      "socket2": {
+        "name": "Critical Hit Chance",
+        "socket": "attr",
+        "class": "offensive",
+        "value": 6
+      }
+    }
+  }

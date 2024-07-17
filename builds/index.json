@@ -78,5 +78,13 @@
         "source": "https://www.youtube.com/watch?v=Ge0TIBiRND8",
         "credit": "Theseus Badger",
         "date": "2023-08-03"
+    },
+    "11": {
+        "name": "2024-07-15 SwoRD Gaming",
+        "desc": "The BEST Chameleon Solo PvE Build For Year 6 Season 1",
+        "path": "builds/",
+        "source": "https://youtu.be/wgGCfyKc_bk?si=0s1wpq1T2_9vVG-y",
+        "credit": "SwoRD Gaming",
+        "date": "2024-07-15"
     }
 }
