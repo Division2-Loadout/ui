@@ -1,5 +1,5 @@
 // GLOBAL
-var v_version = "v1.0"
+var v_version = "v1.2"
 var v_weapon_label;
 var v_weapon_value;
 var private_db_weapon

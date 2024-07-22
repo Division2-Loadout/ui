@@ -1,5 +1,168 @@
+// GLOBALS /.
+
+var _debug = false
+let customHealthAdjustment = -167390; // Default adjustment factor
+
 // Create Base64 Object
 var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
+
+// Declare SHD Watch values globally
+let shdValues = {
+    offense: [0, 0, 0, 0],
+    defense: [0, 0, 0, 0],
+    utility: [0, 0, 0, 0],
+    handling: [0, 0, 0, 0]
+};
+
+// Initialize SHD level
+let shdLevel = parseInt(localStorage.getItem('shdLevel'), 10) || 1;
+
+let statMap = {};
+
+let latestCalculations = {
+    offensive: {},
+    defensive: {},
+    utility: {}
+};
+
+const tooltips = {
+    offense_1: "Weapon Damage",
+    offense_2: "Headshot Damage",
+    offense_3: "Critical Hit Chance",
+    offense_4: "Critical Hit Damage",
+    defense_1: "Health",
+    defense_2: "Armor",
+    defense_3: "Explosive Resistance",
+    defense_4: "Hazard Protection",
+    utility_1: "Skill Haste",
+    utility_2: "Skill Damage",
+    utility_3: "Skill Duration",
+    utility_4: "Repair Skills",
+    handling_1: "Accuracy",
+    handling_2: "Stability",
+    handling_3: "Reload Speed",
+    handling_4: "Ammo Capacity"
+};
+
+/*
+const statMap = {
+    "Weapon Damage": shdValues.offense[0] * 0.5,
+    "Headshot Damage": shdValues.offense[1] * 0.5,
+    "Critical Hit Chance": shdValues.offense[2] * 0.5,
+    "Critical Hit Damage": shdValues.offense[3] * 0.5,
+    "Health": shdValues.defense[0] * 5000,
+    "Armor": shdValues.defense[1] * 10000,
+    "Explosive Resistance": shdValues.defense[2] * 1.0,
+    "Hazard Protection": shdValues.defense[3] * 1.0,
+    "Skill Haste": shdValues.utility[0] * 0.5,
+    "Skill Damage": shdValues.utility[1] * 0.5,
+    "Skill Duration": shdValues.utility[2] * 0.5,
+    "Repair Skills": shdValues.utility[3] * 0.5,
+    "Accuracy": shdValues.handling[0] * 0.5,
+    "Stability": shdValues.handling[1] * 0.5,
+    "Reload Speed": shdValues.handling[2] * 0.5,
+    "Ammo Capacity": shdValues.handling[3] * 0.5,
+};
+*/
+
+// GLOBALS /.
+
+// EXPORT ./
+
+let builds = []; // Ensure builds is defined globally
+let importedLoadout = null; // Global variable to temporarily store the imported loadout
+
+// Function to import loadout(s)
+function importLoadout() {
+    let v_data = $("#field_import").val();
+    let v_json;
+
+    try {
+        v_json = JSON.parse(v_data);
+    } catch (error) {
+        console.error('Error parsing JSON:', error);
+        alert("Invalid JSON format");
+        return;
+    }
+
+    console.log("Import data:", v_json);
+
+    if (typeof v_json === "object" && v_json !== null && isJsonable(v_data)) {
+        if ("name" in v_json) {
+            // Single loadout
+            console.log("add new [single]");
+            v_json.name = `[IMPORT] ${v_json.name}`; // Prepend [IMPORT] to the name
+            build_template = v_json; // Set the build_template to the imported loadout
+            load_build_template(build_template); // Load the build into the UI without saving
+        } else {
+            // Multiple loadouts
+            console.log("add new [multiple]");
+            alert('Multiple loadouts detected. Only the first loadout will be loaded for display.');
+            let firstKey = Object.keys(v_json)[0];
+            let firstLoadout = v_json[firstKey];
+            firstLoadout.name = `[IMPORT] ${firstLoadout.name}`; // Prepend [IMPORT] to the name
+            build_template = firstLoadout; // Set the build_template to the first loadout
+            load_build_template(build_template); // Load the build into the UI without saving
+        }
+        $("#modal_import .close").click();
+        $("#field_import").val("");
+    } else {
+        alert("Nothing to import or error on data");
+    }
+}
+
+
+
+
+
+
+
+// Function to load the imported build into the UI without saving it
+function loadImportedBuild() {
+    if (importedLoadout) {
+        console.log('Loading imported loadout:', importedLoadout); // Debugging statement
+        // Logic to load the imported loadout into the UI
+        load_build_template(importedLoadout);
+    }
+}
+
+// Function to export the current loadout
+function exportCurrentLoadout() {
+    let currentLoadout = getCurrentLoadout();
+    let exportData = JSON.stringify(currentLoadout, null, 2);
+    $('#field_export').val(exportData);
+}
+
+// Function to export all loadouts
+function exportAllLoadouts() {
+    let exportData = JSON.stringify(builds, null, 2);
+    $('#field_export').val(exportData);
+}
+
+// Function to load the current loadout (stub)
+function getCurrentLoadout() {
+    // Replace this stub with actual logic to get the current loadout
+    return builds[0] || {}; // Example logic
+}
+
+// Function to load build select options (stub)
+function load_build_select() {
+    // Replace this stub with actual logic to load build select options
+    console.log('Loading build select options...');
+}
+
+// Event listeners for export and import buttons
+$(document).ready(function() {
+    $('#btn_export_current').click(exportCurrentLoadout);
+    $('#btn_export_all').click(exportAllLoadouts);
+    $('#btn_import').click(importLoadout);
+});
+
+
+
+// EXPORT/.
+
+
 
 function load_build_list() {
     $("#field_build_select").empty()
@@ -189,7 +352,10 @@ function load_build(v_json) {
     for (let v_slot_id in build_template) {
         if(["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"].includes(v_slot_id)) {
             v_item = build_template[v_slot_id]["item"]
-            console.log(v_item)
+
+            if (_debug) {
+                console.log(v_item)
+            }
             
             make_build_body (v_slot_id, v_slot_id.replace("slot_", ""), v_item)
             //make_build_body("slot_mask", "Mask", "Coyote's Mask")
@@ -626,7 +792,9 @@ function load_debug() {
     urlParams = new URLSearchParams(v_qstring);
 
     v_debug = urlParams.get('debug')
-    console.log(v_build_shared)
+    if (_debug) {
+        console.log(v_build_shared)
+    }
     
     //$("#show_debug_db_build").css({"display":"none"})
 
@@ -673,7 +841,9 @@ function load_shared_build() {
     urlParams = new URLSearchParams(v_qstring);
     
     v_build_shared = urlParams.get('build')
-    console.log(v_build_shared)
+    if (_debug) {
+        console.log(v_build_shared)
+    }
     
     if (v_build_shared !== "" && v_build_shared !== null) {
         try {
@@ -775,7 +945,9 @@ function get_build_github_param() {
     urlParams = new URLSearchParams(v_qstring);
 
     v_id = urlParams.get('id')
-    console.log(v_id)
+    if (_debug) {
+        console.log(v_id)
+    }
 
     if (v_id !== "" && v_id !== null && isNumeric(v_id)) {
         load_build_github(v_id)
@@ -799,6 +971,13 @@ $(document).on("click", "[id^=btn_search_set_]", function() {
     load_build_github(v_id)
 });
 
+
+$(document).on("click", "#debugme", function() {
+    calculate_all_stats(build_template)
+    show_db_stats("defensive")
+});
+
+
 $(document).on("click", "#btn_search_build", function() {
     if (Object.keys(db_search).length === 0) {
         search_run()
@@ -808,10 +987,12 @@ $(document).on("click", "#btn_search_build", function() {
     //request_get(v_url)
 });
 
+/*
 $(document).on("click", "#viewstats", function() {
     v_value = $("#viewstats").val()
     show_db_stats(v_value)
 });
+*/
 
 $(document).on("click", "#btn_build_export", function() {
     export_db()
@@ -838,7 +1019,7 @@ $(document).on("click", "#btn_export_all", function() {
     $("#btn_export_current").removeClass("box_tag_selected")
 });
 
-$(document).on("click", "#btn_import", function() {
+$(document).on("click", "#btn_import_OLD", function() {
     v_obj = $(this)
     v_id = v_obj.attr("id")
     console.log(v_id)
@@ -949,6 +1130,12 @@ $(document).on("click", "#btn_build_new", function() {
     show_msg("New")
 
     reset_build()
+
+    calculatedStats = calculate_all_stats(build_template);
+    $("#stats_dmg").html(`+${calculatedStats.offensive["Weapon Damage"].toFixed(1)}%`);
+    $("#stats_armor").html(nFormatter(calculatedStats.defensive["Armor"]));
+    $("#stats_health").html(nFormatter(calculatedStats.defensive["Health"]));
+    show_db_stats("offensive")
 
     //$("#slot_mask_item").val("Coyote's Mask").change()
     //$("#slot_mask_core").val("Armor").change()
@@ -1102,7 +1289,10 @@ function reset_build() {
     $('[id*=_mod_icon]').html(`<img width="15px" src="icons/blank_mod.png">`)
 
     for (let v_key of ["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"]) {
-        console.log(v_key)
+        if (_debug) {
+            console.log(v_key)
+        }
+        
         $(`#${v_key}`).removeClass()
         $(`#${v_key}_header`).removeClass()
 
@@ -1115,7 +1305,10 @@ function reset_build() {
     }
 
     for (let v_key of ["slot_primary", "slot_secondary", "slot_sidearm"]) {
-        console.log(v_key)
+        if (_debug) {
+            console.log(v_key)
+        }
+
         $(`#${v_key}`).removeClass()
         $(`#${v_key}_header`).removeClass()
 
@@ -1133,6 +1326,9 @@ function reset_build() {
 
         $(`#${v_key}`).empty()
     }
+
+    // Restore the SHD level value
+    $("#shd_level_input").val(shdLevel);
     
 }
 
@@ -1176,7 +1372,10 @@ $(document).on("change", "[id^=slot_X]", function() {
 
     if (v_id.endsWith("_item")) {
         v_obj = $(`#${v_id}`)
-        console.log(v_obj)
+        if (_debug) {
+            console.log(v_obj)
+        }
+        
         v_type = v_obj.find(':selected').data('type')
         set_slot_class(v_id_root, v_type)
     }
@@ -1656,7 +1855,9 @@ function weapon_title() {
             });
         } else {
             v_type = v_type.toLowerCase().replace("item_", "")
-            console.log(v_slot, v_type)
+            if (_debug) {
+                console.log(v_slot, v_type)
+            }
             v_obj_header = $(`#${v_slot}_header`)
             v_obj = $(`#${v_slot}`)
 
@@ -1854,6 +2055,7 @@ function weapon_title() {
         
     }
 
+    /*
     function set_db_stats() {
         db_stats = {
             "offensive": {},
@@ -1900,7 +2102,9 @@ function weapon_title() {
         return db_stats
 
     }
+    */
 
+    /*
     function show_db_stats(v_socket_class) {
         $("#slot_viewstats").empty()
         content = "<table>"
@@ -1931,26 +2135,28 @@ function weapon_title() {
         content += "</table>"
         $("#slot_viewstats").append(content)
     }
+    */
 
-    function load_build_template(build_template) {
-        $("#field_build_name").val(build_template["name"])
-        $("#field_build_desc").val(build_template["desc"])
-        $(`#slot_specialization`).empty()
-
-        if(build_template["stored"] !== "" && build_template["stored"] !== undefined) {
-            v_build_stored = build_template["stored"]
+    function load_build_templateX(build_template) {
+        console.log("++++++ load_build_template ++++++");
+        $("#field_build_name").val(build_template["name"]);
+        $("#field_build_desc").val(build_template["desc"]);
+        $(`#slot_specialization`).empty();
+    
+        if (build_template["stored"] !== "" && build_template["stored"] !== undefined) {
+            v_build_stored = build_template["stored"];
         } else {
-            v_build_stored = "1"
+            v_build_stored = "1";
         }
-        set_build_stored(v_build_stored)
-
-        if(build_template["tag"] !== "" && build_template["tag"] !== undefined) {
-            v_build_tag = build_template["tag"]
+        set_build_stored(v_build_stored);
+    
+        if (build_template["tag"] !== "" && build_template["tag"] !== undefined) {
+            v_build_tag = build_template["tag"];
         } else {
-            v_build_tag = "loadout"
+            v_build_tag = "loadout";
         }
-        set_build_tag(v_build_tag)
-
+        set_build_tag(v_build_tag);
+    
         v_total_core_attr = {
             "total_core_offensive": 0,
             "total_core_defensive": 0,
@@ -1958,174 +2164,379 @@ function weapon_title() {
             "total_attr_offensive": 0,
             "total_attr_defensive": 0,
             "total_attr_utility": 0
-        }
+        };
+    
+        // Calculate SHD bonuses
+        //const offenseBonus = shdValues.offense[0] * 0.5; // Weapon Damage
+        //const defenseBonus = shdValues.defense[0] * 1000; // Armor (1,000 per level)
+        //const healthBonus = shdValues.defense[1] * 5000;  // Health (5,000 per level)
 
-        // LOAD BASELINE
-        v_stats_dmg = db_baseline["stats_dmg"]
-        v_stats_armor = db_baseline["stats_armor"]
-        v_stats_health = db_baseline["stats_health"]
-
-        set_db_stats()
-
+        const offenseBonus = shdValues.offense[0] * 0.5; // Weapon Damage
+        const defenseBonus = shdValues.defense[1] * 1000; // Armor (10,000 per level)
+        const healthBonus = shdValues.defense[0] * 5000;  // Health (5,000 per level)
+    
+        console.log(`SHD Bonuses - Damage: ${offenseBonus} Armor: ${defenseBonus} Health: ${healthBonus}`);
+    
+        // Initialize Base Stats with SHD Bonuses
+        let v_stats_dmg = offenseBonus; // Start at SHD bonus for weapon damage
+        let v_stats_armor = db_baseline["stats_armor"] + defenseBonus;
+        let v_stats_health = db_baseline["stats_health"] + healthBonus;
+    
+        console.log(`Initial Stats - Damage: ${v_stats_dmg} Armor: ${v_stats_armor} Health: ${v_stats_health}`);
+    
+        set_db_stats();
+    
         for (let v_slot_id in build_template) {
-            
-            if(["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"].includes(v_slot_id)) {
-
+            if (["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"].includes(v_slot_id)) {
                 for (let v_key2fix in build_template[v_slot_id]) {
                     if (v_key2fix === "core") {
-                        build_template[v_slot_id]["socket1"] = build_template[v_slot_id][v_key2fix]
-                        delete build_template[v_slot_id][v_key2fix]
+                        build_template[v_slot_id]["socket1"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
                     } else if (v_key2fix === "attr1") {
-                        build_template[v_slot_id]["socket2"] = build_template[v_slot_id][v_key2fix]
-                        delete build_template[v_slot_id][v_key2fix]
+                        build_template[v_slot_id]["socket2"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
                     } else if (v_key2fix === "attr2") {
-                        build_template[v_slot_id]["socket3"] = build_template[v_slot_id][v_key2fix]
-                        delete build_template[v_slot_id][v_key2fix]
+                        build_template[v_slot_id]["socket3"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
                     } else if (v_key2fix === "mod") {
-                        build_template[v_slot_id]["socket4"] = build_template[v_slot_id][v_key2fix]
-                        delete build_template[v_slot_id][v_key2fix]
+                        build_template[v_slot_id]["socket4"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
                     } else if (v_key2fix === "talent") {
-                        build_template[v_slot_id]["socket5"] = build_template[v_slot_id][v_key2fix]
-                        delete build_template[v_slot_id][v_key2fix]
+                        build_template[v_slot_id]["socket5"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
                     }
                 }
-
-                console.log(build_template[v_slot_id])
-                v_item = build_template[v_slot_id]["item"]
-                
-                v_item_type = v_slot_id.replace("slot_", "")
-                console.log(v_slot_id)
-                
-                make_build_body(v_slot_id, v_item_type, v_item) //make_build_body("slot_mask", "Mask", "Coyote's Mask")
-                ////set_slot_class()
-
-                //view_mode = "bars"
-                if (view_mode === "bars") {
-                    $(`#${v_slot_id}`).empty()
-                    //make_build_body_mode_bars (v_socket_name, v_socket_icon, v_socket_value, v_socket_max)
-                } else {
-                    //make_build_body(v_slot_id, v_item_type, v_item) //make_build_body("slot_mask", "Mask", "Coyote's Mask")
+    
+                if (_debug) {
+                    console.log(build_template[v_slot_id]);
                 }
-
+    
+                v_item = build_template[v_slot_id]["item"];
+                v_item_type = v_slot_id.replace("slot_", "");
+                if (_debug) {
+                    console.log(v_slot_id);
+                }
+    
+                make_build_body(v_slot_id, v_item_type, v_item);
+    
+                if (view_mode === "bars") {
+                    $(`#${v_slot_id}`).empty();
+                }
+    
                 // LOAD SAVED VALUES
                 for (let v_slot_sub_key in build_template[v_slot_id]) {
                     if (v_slot_sub_key.startsWith("socket")) {
-                        v_json = build_template[v_slot_id][v_slot_sub_key]
-                        v_socket_name = v_json["name"]
-                        v_socket_value = v_json["value"]
-                        v_socket_class = v_json["class"]
-                        v_socket_type = v_json["socket"]
-                        v_socket_icon = make_icon(v_socket_type, v_socket_class)
-                        v_socket_default = get_socket_default(v_socket_name)
-                        v_socket_max = v_socket_default["max"]
-                        if (v_socket_value > v_socket_max) v_socket_value = v_socket_max
-
-                        console.log(`[>>] ${v_socket_name} :: ${v_socket_value} :: ${v_socket_class} :: ${v_socket_icon}`)
-
-                        v_id_socket = `${v_slot_id}_${v_slot_sub_key}_${v_socket_type}`
-
+                        v_json = build_template[v_slot_id][v_slot_sub_key];
+                        v_socket_name = v_json["name"];
+                        v_socket_value = v_json["value"];
+                        v_socket_class = v_json["class"];
+                        v_socket_type = v_json["socket"];
+                        v_socket_icon = make_icon(v_socket_type, v_socket_class);
+                        v_socket_default = get_socket_default(v_socket_name);
+                        v_socket_max = v_socket_default["max"];
+                        if (v_socket_value > v_socket_max) v_socket_value = v_socket_max;
+    
+                        if (_debug) {
+                            console.log(`[>>] ${v_socket_name} :: ${v_socket_value} :: ${v_socket_class} :: ${v_socket_icon}`);
+                        }
+    
+                        v_id_socket = `${v_slot_id}_${v_slot_sub_key}_${v_socket_type}`;
+    
                         if (v_socket_name !== "") {
-                            $(`#${v_id_socket}`).val(v_socket_name)
+                            $(`#${v_id_socket}`).val(v_socket_name);
                             if (v_socket_value !== v_socket_max) {
-                                $(`#${v_id_socket}_value`).val(v_socket_value)
+                                $(`#${v_id_socket}_value`).val(v_socket_value);
                             }
-                            $(`#${v_id_socket}_value`).attr("max", v_socket_max)
-                            $(`#${v_id_socket}_value`).attr("placeholder", v_socket_max)
-                            $(`#${v_id_socket}_icon`).attr("src", `icons/${v_socket_icon}`)
-                            
-                            $(`#${v_id_socket}`).removeClass()
-                            $(`#${v_id_socket}`).addClass(`text_${v_socket_class}`)
-
-                            v_tca_key = `total_${v_socket_type}_${v_socket_class}`
-                            v_total_core_attr[v_tca_key] += 1
-
+                            $(`#${v_id_socket}_value`).attr("max", v_socket_max);
+                            $(`#${v_id_socket}_value`).attr("placeholder", v_socket_max);
+                            $(`#${v_id_socket}_icon`).attr("src", `icons/${v_socket_icon}`);
+    
+                            $(`#${v_id_socket}`).removeClass();
+                            $(`#${v_id_socket}`).addClass(`text_${v_socket_class}`);
+    
+                            v_tca_key = `total_${v_socket_type}_${v_socket_class}`;
+                            v_total_core_attr[v_tca_key] += 1;
+    
                             try {
-                                db_stats[v_socket_class][v_socket_name] += Number(v_socket_value)
+                                db_stats[v_socket_class][v_socket_name] += Number(v_socket_value);
                             } catch {
-                                console.log(`[!] db_stats > NO KEY: ${v_socket_name}`)
+                                if (_debug) {
+                                    console.log(`[!] db_stats > NO KEY: ${v_socket_name}`);
+                                }
                             }
                         }
-                        
+    
                         // BASELINE
-                        if (v_socket_name.toLowerCase() === "weapon damage") v_stats_dmg += Number(v_socket_value)
-                        if (v_socket_name.toLowerCase() === "armor") v_stats_armor += Number(v_socket_value)
-                        if (v_socket_name.toLowerCase() === "health") v_stats_health += Number(v_socket_value)
-
-                        // VIEW MODE
+                        if (v_socket_name.toLowerCase() === "weapon damage") v_stats_dmg += Number(v_socket_value);
+                        if (v_socket_name.toLowerCase() === "armor") v_stats_armor += Number(v_socket_value);
+                        if (v_socket_name.toLowerCase() === "health") v_stats_health += Number(v_socket_value);
+    
                         if (view_mode === "bars") {
-                            make_build_body_mode_bars (v_slot_id, v_socket_type, v_socket_name, v_socket_class, v_socket_value, v_socket_max)
-                            console.log("----------------->")
+                            make_build_body_mode_bars(v_slot_id, v_socket_type, v_socket_name, v_socket_class, v_socket_value, v_socket_max);
+                            if (_debug) {
+                                console.log("----------------->");
+                            }
                         }
                     }
-                    
                 }
-
             }
-
+    
             for (v_tca_key in v_total_core_attr) {
-                $(`#${v_tca_key}`).html(v_total_core_attr[v_tca_key])
+                $(`#${v_tca_key}`).html(v_total_core_attr[v_tca_key]);
             }
-
+    
             if (["slot_primary", "slot_secondary", "slot_sidearm"].includes(v_slot_id)) {
-                v_item_name = build_template[v_slot_id]["item"]
+                v_item_name = build_template[v_slot_id]["item"];
                 if (v_item_name !== "" && v_item_name !== undefined) {
-                    $(`#${v_slot_id}_item`).val(v_item_name)
+                    $(`#${v_slot_id}_item`).val(v_item_name);
                 }
-
-                make_build_body_weapon(v_slot_id, v_item_name)
-                
+    
+                make_build_body_weapon(v_slot_id, v_item_name);
             }
-
-            // SPECIALIZATION
+    
             if (["slot_specialization"].includes(v_slot_id)) {
-                v_item_name = build_template[v_slot_id]["item"]
+                v_item_name = build_template[v_slot_id]["item"];
                 if (v_item_name !== "" && v_item_name !== undefined) {
-                    $(`#${v_slot_id}_item`).val(v_item_name)
-                    $(`#slot_specialization`).empty()
-                    content = ""
+                    $(`#${v_slot_id}_item`).val(v_item_name);
+                    $(`#slot_specialization`).empty();
+                    content = "";
                     for (v_index in db_specialization[v_item_name]) {
-                        $(`#slot_specialization`).append(db_specialization[v_item_name][v_index] + "<br>")
+                        $(`#slot_specialization`).append(db_specialization[v_item_name][v_index] + "<br>");
                     }
                 }
             }
-
-            // STATS
-            //v_stats_dmg = db_baseline["stats_dmg"]
-            //v_stats_armor = db_baseline["stats_armor"]
-            //v_stats_health = db_baseline["stats_health"]
-            $("#stats_dmg").html(`+${v_stats_dmg.toFixed(1)}%`)
-            $("#stats_armor").html(nFormatter(v_stats_armor))
-            $("#stats_health").html(nFormatter(v_stats_health))
-
-            // SKILLS
+    
             if (["slot_skill1", "slot_skill2"].includes(v_slot_id)) {
-                v_skill_name = build_template[v_slot_id]["item"]
-
+                v_skill_name = build_template[v_slot_id]["item"];
+    
                 try {
-                    v_skill_filename = db_skill[v_skill_name]["filename"]
+                    v_skill_filename = db_skill[v_skill_name]["filename"];
                 } catch {
-                    console.log("ERROR SKILLS: ./")
-                    console.log(v_slot_id)
-                    console.log(v_skill_name)
-                    console.log(db_skill[v_skill_name])
-                    console.log("ERROR SKILLS: /.")
-                    v_skill_filename = ""
+                    if (_debug) {
+                        console.log("ERROR SKILLS: ./");
+                        console.log(v_slot_id);
+                        console.log(v_skill_name);
+                        console.log(db_skill[v_skill_name]);
+                        console.log("ERROR SKILLS: /.");
+                    }
+                    v_skill_filename = "";
                 }
-                
+    
                 if (v_skill_filename === "") {
-                    v_skill_filename = "none"
+                    v_skill_filename = "none";
                 }
-                v_skill_slot = v_slot_id.replace("slot_skill", "")
-                $(`#slot_skill${v_skill_slot}`).attr("src", `icons/skills/${v_skill_filename}.png`)
+                v_skill_slot = v_slot_id.replace("slot_skill", "");
+                $(`#slot_skill${v_skill_slot}`).attr("src", `icons/skills/${v_skill_filename}.png`);
             }
         }
-
-        console.log(db_stats)
-        v_show_db_stats = $("#viewstats").val()
-        show_db_stats(v_show_db_stats)
-
+    
+        // STATS
+        $("#stats_dmg").html(`+${v_stats_dmg.toFixed(1)}%`);
+        $("#stats_armor").html(nFormatter(v_stats_armor));
+        $("#stats_health").html(nFormatter(v_stats_health));
+    
+        console.log(`Final Stats - Damage: ${v_stats_dmg} Armor: ${v_stats_armor} Health: ${v_stats_health}`);
+        v_show_db_stats = $("#viewstats").val();
+        show_db_stats(v_show_db_stats);
     }
-
+    
+    
+    
+    function load_build_template(build_template) {
+        console.log("++++++ load_build_template ++++++");
+        
+        $("#field_build_name").val(build_template["name"]);
+        $("#field_build_desc").val(build_template["desc"]);
+        $(`#slot_specialization`).empty();
+    
+        if (build_template["stored"] !== "" && build_template["stored"] !== undefined) {
+            v_build_stored = build_template["stored"];
+        } else {
+            v_build_stored = "1";
+        }
+        set_build_stored(v_build_stored);
+    
+        if (build_template["tag"] !== "" && build_template["tag"] !== undefined) {
+            v_build_tag = build_template["tag"];
+        } else {
+            v_build_tag = "loadout";
+        }
+        set_build_tag(v_build_tag);
+    
+        v_total_core_attr = {
+            "total_core_offensive": 0,
+            "total_core_defensive": 0,
+            "total_core_utility": 0,
+            "total_attr_offensive": 0,
+            "total_attr_defensive": 0,
+            "total_attr_utility": 0
+        };
+    
+        const offenseBonus = shdValues.offense[0] * 0.5; // Weapon Damage
+        const defenseBonus = shdValues.defense[1] * 1000; // Armor (10,000 per level)
+        const healthBonus = shdValues.defense[0] * 5000;  // Health (5,000 per level)
+    
+        console.log(`SHD Bonuses - Damage: ${offenseBonus} Armor: ${defenseBonus} Health: ${healthBonus}`);
+    
+        let v_stats_dmg = offenseBonus; // Start at SHD bonus for weapon damage
+        let v_stats_armor = db_baseline["stats_armor"] + defenseBonus;
+        let v_stats_health = db_baseline["stats_health"] + healthBonus;
+    
+        console.log(`Initial Stats - Damage: ${v_stats_dmg} Armor: ${v_stats_armor} Health: ${v_stats_health}`);
+    
+        set_db_stats();
+    
+        for (let v_slot_id in build_template) {
+            if (["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"].includes(v_slot_id)) {
+                for (let v_key2fix in build_template[v_slot_id]) {
+                    if (v_key2fix === "core") {
+                        build_template[v_slot_id]["socket1"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
+                    } else if (v_key2fix === "attr1") {
+                        build_template[v_slot_id]["socket2"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
+                    } else if (v_key2fix === "attr2") {
+                        build_template[v_slot_id]["socket3"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
+                    } else if (v_key2fix === "mod") {
+                        build_template[v_slot_id]["socket4"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
+                    } else if (v_key2fix === "talent") {
+                        build_template[v_slot_id]["socket5"] = build_template[v_slot_id][v_key2fix];
+                        delete build_template[v_slot_id][v_key2fix];
+                    }
+                }
+    
+                if (_debug) {
+                    console.log(build_template[v_slot_id]);
+                }
+    
+                v_item = build_template[v_slot_id]["item"];
+                v_item_type = v_slot_id.replace("slot_", "");
+                if (_debug) {
+                    console.log(v_slot_id);
+                }
+    
+                make_build_body(v_slot_id, v_item_type, v_item);
+    
+                if (view_mode === "bars") {
+                    $(`#${v_slot_id}`).empty();
+                }
+    
+                for (let v_slot_sub_key in build_template[v_slot_id]) {
+                    if (v_slot_sub_key.startsWith("socket")) {
+                        v_json = build_template[v_slot_id][v_slot_sub_key];
+                        v_socket_name = v_json["name"];
+                        v_socket_value = v_json["value"];
+                        v_socket_class = v_json["class"];
+                        v_socket_type = v_json["socket"];
+                        v_socket_icon = make_icon(v_socket_type, v_socket_class);
+                        v_socket_default = get_socket_default(v_socket_name);
+                        v_socket_max = v_socket_default["max"];
+                        if (v_socket_value > v_socket_max) v_socket_value = v_socket_max;
+    
+                        if (_debug) {
+                            console.log(`[>>] ${v_socket_name} :: ${v_socket_value} :: ${v_socket_class} :: ${v_socket_icon}`);
+                        }
+    
+                        v_id_socket = `${v_slot_id}_${v_slot_sub_key}_${v_socket_type}`;
+    
+                        if (v_socket_name !== "") {
+                            $(`#${v_id_socket}`).val(v_socket_name);
+                            if (v_socket_value !== v_socket_max) {
+                                $(`#${v_id_socket}_value`).val(v_socket_value);
+                            }
+                            $(`#${v_id_socket}_value`).attr("max", v_socket_max);
+                            $(`#${v_id_socket}_value`).attr("placeholder", v_socket_max);
+                            $(`#${v_id_socket}_icon`).attr("src", `icons/${v_socket_icon}`);
+    
+                            $(`#${v_id_socket}`).removeClass();
+                            $(`#${v_id_socket}`).addClass(`text_${v_socket_class}`);
+    
+                            v_tca_key = `total_${v_socket_type}_${v_socket_class}`;
+                            v_total_core_attr[v_tca_key] += 1;
+    
+                            try {
+                                db_stats[v_socket_class][v_socket_name] += Number(v_socket_value);
+                            } catch {
+                                if (_debug) {
+                                    console.log(`[!] db_stats > NO KEY: ${v_socket_name}`);
+                                }
+                            }
+                        }
+    
+                        if (v_socket_name.toLowerCase() === "weapon damage") v_stats_dmg += Number(v_socket_value);
+                        if (v_socket_name.toLowerCase() === "armor") v_stats_armor += Number(v_socket_value);
+                        if (v_socket_name.toLowerCase() === "health") v_stats_health += Number(v_socket_value);
+    
+                        if (view_mode === "bars") {
+                            make_build_body_mode_bars(v_slot_id, v_socket_type, v_socket_name, v_socket_class, v_socket_value, v_socket_max);
+                            if (_debug) {
+                                console.log("----------------->");
+                            }
+                        }
+                    }
+                }
+            }
+    
+            for (v_tca_key in v_total_core_attr) {
+                $(`#${v_tca_key}`).html(v_total_core_attr[v_tca_key]);
+            }
+    
+            if (["slot_primary", "slot_secondary", "slot_sidearm"].includes(v_slot_id)) {
+                v_item_name = build_template[v_slot_id]["item"];
+                if (v_item_name !== "" && v_item_name !== undefined) {
+                    $(`#${v_slot_id}_item`).val(v_item_name);
+                }
+    
+                make_build_body_weapon(v_slot_id, v_item_name);
+            }
+    
+            if (["slot_specialization"].includes(v_slot_id)) {
+                v_item_name = build_template[v_slot_id]["item"];
+                if (v_item_name !== "" && v_item_name !== undefined) {
+                    $(`#${v_slot_id}_item`).val(v_item_name);
+                    $(`#slot_specialization`).empty();
+                    content = "";
+                    for (v_index in db_specialization[v_item_name]) {
+                        $(`#slot_specialization`).append(db_specialization[v_item_name][v_index] + "<br>");
+                    }
+                }
+            }
+    
+            if (["slot_skill1", "slot_skill2"].includes(v_slot_id)) {
+                v_skill_name = build_template[v_slot_id]["item"];
+    
+                try {
+                    v_skill_filename = db_skill[v_skill_name]["filename"];
+                } catch {
+                    if (_debug) {
+                        console.log("ERROR SKILLS: ./");
+                        console.log(v_slot_id);
+                        console.log(v_skill_name);
+                        console.log(db_skill[v_skill_name]);
+                        console.log("ERROR SKILLS: /.");
+                    }
+                    v_skill_filename = "";
+                }
+    
+                if (v_skill_filename === "") {
+                    v_skill_filename = "none";
+                }
+                v_skill_slot = v_slot_id.replace("slot_skill", "");
+                $(`#slot_skill${v_skill_slot}`).attr("src", `icons/skills/${v_skill_filename}.png`);
+            }
+        }
+    
+        $("#stats_dmg").html(`+${v_stats_dmg.toFixed(1)}%`);
+        $("#stats_armor").html(nFormatter(v_stats_armor));
+        $("#stats_health").html(nFormatter(v_stats_health));
+    
+        console.log(`Final Stats - Damage: ${v_stats_dmg} Armor: ${v_stats_armor} Health: ${v_stats_health}`);
+        v_show_db_stats = $("#viewstats").val();
+        show_db_stats(v_show_db_stats);
+    }
+    
     function nFormatter(num) {
         if (num >= 1000000000) {
             return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
@@ -2164,7 +2575,11 @@ function weapon_title() {
                 if (v_socket_value_show.includes("NaN")) v_socket_value_show = "+0.0%"
             }
             v_percent = (v_socket_value / v_socket_max) * 100
-            console.log(`[%] ${v_percent}`)
+
+            if (_debug) {
+                console.log(`[%] ${v_percent}`)
+            }
+            
             if (v_percent <= 0) v_percent = 5
             
             v_block = `
@@ -2184,11 +2599,15 @@ function weapon_title() {
 
     function set_build_template_slot_default(v_slot_id, v_type, v_item) {
         console.log("--------------->")
-        console.log(v_slot_id, v_type, v_item)
+        if (_debug) {
+            console.log(v_slot_id, v_type, v_item)
+        }
         v_gear_key = `${v_type}^${v_item}`.toLowerCase()
 
         v_gear_json = db_gear_key[v_gear_key]
-        console.log(v_gear_json)
+        if (_debug) {
+            console.log(v_gear_json)
+        }
 
         build_template[v_slot_id] = {}
         build_template[v_slot_id]["item"] = v_item
@@ -2204,10 +2623,14 @@ function weapon_title() {
                     v_socket_type_root = v_socket_type.replace("_fixed", "")
                     v_socket = v_key.replace("_", "")
                     v_socket_name = v_gear_json[v_socket]
-                    console.log(`[>]${v_key} :: ${v_socket}`)
-                    console.log(v_socket_name)
+                    if (_debug) {
+                        console.log(`[>]${v_key} :: ${v_socket}`)
+                        console.log(v_socket_name)
+                    }
                     v_socket_default = get_socket_default(v_socket_name)
-                    console.log(v_socket_default)
+                    if (_debug) {
+                        console.log(v_socket_default)
+                    }
 
                     build_template[v_slot_id][v_socket] = {}
                     if (v_socket_name !== "X" && !v_socket_name.startsWith("[")) {
@@ -2243,8 +2666,10 @@ function weapon_title() {
         v_obj = $(this)
         v_id = v_obj.attr("id")
 
-        console.log(v_id)
-
+        if (_debug) {
+            console.log(v_id)
+        }
+        
         v_temp = v_id.split("_")
         v_id_root = `${v_temp[0]}_${v_temp[1]}`
         v_slot = v_id.replace("slot_", "").replace("_item", "")
@@ -2332,10 +2757,16 @@ function weapon_title() {
 
         if (v_id.endsWith("_item")) {
             v_obj = $(`#${v_id}`)
-            console.log(v_obj)
+            if (_debug) {
+                console.log(v_obj)
+            }
+            
             v_type = v_obj.find(':selected').data('type')
             v_value = v_obj.val()
-            console.log(v_value)
+
+            if (_debug) {
+                console.log(v_value)
+            }
             
             set_slot_class(v_id_root, v_type, v_category)
 
@@ -2462,15 +2893,20 @@ function weapon_title() {
 
 
     function make_icon(v_socket_type, v_value) {
-        console.log(v_socket_type, v_value)
+        if (_debug) {
+            console.log(v_socket_type, v_value)
+        }
+        
         if (["defensive", "offensive", "utility"].includes(v_value)) {
             v_class_type = v_value
         } else {
             v_class_type = get_class_type(v_value)
         }
         
-        console.log(`v_class_type: ${v_class_type}`)
-
+        if (_debug) {
+            console.log(`v_class_type: ${v_class_type}`)
+        }
+        
         v_icon = `blank_mod.png`
         v_icon_title = ``
 
@@ -2498,68 +2934,76 @@ function weapon_title() {
     }
 
     function make_build_body_weapon(v_slot_id, v_item) {
-        console.log("----- [make_build_body] ------")
-        console.log(`v_slot_id: ${v_slot_id}`)  // slot_primary
-        console.log(`v_item: ${v_item}`)        // Backfire
-        console.log("----- [+] ------")
-
-        $(`#${v_slot_id}`).empty()
-
+        if (_debug) {
+            console.log("----- [make_build_body] ------");
+            console.log(`v_slot_id: ${v_slot_id}`);  // slot_primary
+            console.log(`v_item: ${v_item}`);        // Backfire
+            console.log("----- [+] ------");
+        }
+        
+        $(`#${v_slot_id}`).empty();
+    
         if (v_item !== "" && v_item !== undefined) {
-            v_key = v_item.toLowerCase().trim()
-
-            //build_db_weapon_key()
-
-            console.log(`_${v_key}_`)
-            v_record_json = db_weapon_key[v_key]
-            console.log(db_weapon_key)
-            console.log("2" + v_record_json)
-
-            v_obj = $(`#${v_slot_id}_item`)
-            v_obj.val(v_item)
-            v_class = v_obj.find(':selected').attr('class')
-            v_obj.removeClass()
-            v_obj.addClass(v_class)
-
-            v_type = v_obj.find(':selected').data('type')
-
-            if (["slot_primary", "slot_secondary"].includes(v_slot_id)) {
-                v_category = "weapon"
+            v_key = v_item.toLowerCase().trim();
+    
+            console.log(`_${v_key}_`);
+            v_record_json = db_weapon_key[v_key];
+            console.log(db_weapon_key);
+            console.log("2" + v_record_json);
+    
+            if (v_record_json) {
+                v_obj = $(`#${v_slot_id}_item`);
+                v_obj.val(v_item);
+                v_class = v_obj.find(':selected').attr('class');
+                v_obj.removeClass();
+                v_obj.addClass(v_class);
+    
+                v_type = v_obj.find(':selected').data('type');
+    
+                if (["slot_primary", "slot_secondary"].includes(v_slot_id)) {
+                    v_category = "weapon";
+                } else {
+                    v_category = "sidearm";
+                }
+                set_slot_class(v_slot_id, v_type, v_category); // set_slot_class(v_slot_id, "exotic")
+                
+                if (!v_item.startsWith("[")) {
+                    v_item_class = v_record_json["class"] || "";
+                    v_item_variant = v_record_json["variant"] || "";
+                    v_item_type = v_record_json["type"] || "normal";
+                    if (v_item_type === "normal") { v_item_type = "high-end"; }
+                    v_block = `${v_item_class} <br> ${v_item_variant} <br> ${v_item_type}`;
+    
+                    $(`#${v_slot_id}`).append(v_block);
+                }
             } else {
-                v_category = "sidearm"
-            }
-            set_slot_class(v_slot_id, v_type, v_category) // set_slot_class(v_slot_id, "exotic")
-            
-            if(v_item.startsWith("[")) {
-
-            } else {
-                v_item_class = v_record_json["class"]
-                v_item_variant = v_record_json["variant"]
-                v_item_type = v_record_json["type"]
-                if (v_item_type === "normal") { v_item_type = "high-end" }
-                v_block = `${v_item_class} <br> ${v_item_variant} <br> ${v_item_type}`
-
-                $(`#${v_slot_id}`).append(v_block)
+                console.error(`No record found for key: ${v_key}`);
             }
         }
-
     }
+    
 
     function make_build_body(v_slot_id, v_type, v_item) {
-        console.log("----- [make_build_body] ------")
-        console.log(`v_slot_id: ${v_slot_id}`)  // slot_mask
-        console.log(`v_type: ${v_type}`)        // mask
-        console.log(`v_item: ${v_item}`)        // Catharsis
-        console.log("----- [+] ------")
+        if (_debug) {
+            console.log("----- [make_build_body] ------")
+            console.log(`v_slot_id: ${v_slot_id}`)  // slot_mask
+            console.log(`v_type: ${v_type}`)        // mask
+            console.log(`v_item: ${v_item}`)        // Catharsis
+            console.log("----- [+] ------")
+        }
+        
 
         $(`#${v_slot_id}`).empty()
 
         v_gear_key = `${v_type}^${v_item}`.toLowerCase()
         
-        console.log(v_gear_key)
+        if (_debug) {
+            console.log(v_gear_key)
+        }
         v_gear_json = db_gear_key[v_gear_key]
-        console.log(v_gear_json)
-
+        if (_debug) {
+            console.log(v_gear_json)
+        }
         v_obj = $(`#${v_slot_id}_item`)
         v_obj.val(v_item)
         v_class = v_obj.find(':selected').attr('class')
@@ -2617,7 +3061,9 @@ function weapon_title() {
                             }
 
                             v_socket_name = `<select id="${v_id_socket}" style="width: ${css_socket_name_width}px;">${v_option_list}</select>`
-                            console.log(v_option_list)
+                            if (_debug) {
+                                console.log(v_option_list)
+                            }
                         }
 
                         v_img = ``
@@ -2663,12 +3109,16 @@ function weapon_title() {
 
                     if (v_value !== "" && v_value !== "-") {
                         $(`#${v_id_socket}`).val(v_value)
-                        console.log(`v_value: ${v_value}`)
-
+                        if (_debug) {
+                            console.log(`v_value: ${v_value}`)
+                        }
+                        
                         //v_class_type = get_class_type(v_value)
                         v_socket_default = get_socket_default(v_value)
-                        console.log(v_socket_default)
-                        
+                        if (_debug) {
+                            console.log(v_socket_default)
+                        }
+
                         $(`#${v_id_socket}`).removeClass()
                         $(`#${v_id_socket}`).addClass(`text_${v_socket_default["type"]}`)
 
@@ -2690,7 +3140,11 @@ function weapon_title() {
             v_key = `${v_record["class"].toLowerCase()}^${v_record["item"].toLowerCase()}`
             db_gear_key[v_key] = v_record
         }
-        console.log(db_gear_key)
+
+        if (_debug) {
+            console.log(db_gear_key)
+        }
+        
     }
 
     //db_weapon_key = {}
@@ -2700,7 +3154,11 @@ function weapon_title() {
             v_key = `${v_record["item"].toLowerCase()}`
             db_weapon_key[v_key] = v_record
         }
-        console.log(db_weapon_key)
+
+        if (_debug) {
+            console.log(db_weapon_key)
+        }
+        
     }
 
     
@@ -2862,14 +3320,19 @@ function weapon_title() {
     });
     
     $(document).on("click", "#btn_shd_watch", function() {
-        show_alert("[ work in progress ]")
+        //show_alert("[ work in progress ]")
+        v_skill_slot = "2"
+        jQuery.noConflict();
+        $("#modal_shd_watch").modal('show');
         return false
     });
 
     function load_db_skill() {
         v_class_latest = ""
         for (let v_key in db_skill) {
-            console.log(v_key)
+            if (_debug) {
+                console.log(v_key)
+            }
             if (v_class_latest !== "" && v_class_latest !== db_skill[v_key]["class"]) {
                 $("#skill_list").append("<br>")
             }
@@ -2911,3 +3374,1121 @@ function weapon_title() {
         }
         
     });
+/*
+function updateStatMap() {
+    statMap = {
+        "Weapon Damage": shdValues.offense[0] * 0.5,
+        "Headshot Damage": shdValues.offense[1] * 0.5,
+        "Critical Hit Chance": shdValues.offense[2] * 0.5,
+        "Critical Hit Damage": shdValues.offense[3] * 0.5,
+        "Health": shdValues.defense[0] * 5000,
+        "Armor": shdValues.defense[1] * 10000,
+        "Explosive Resistance": shdValues.defense[2] * 1.0,
+        "Hazard Protection": shdValues.defense[3] * 1.0,
+        "Skill Haste": shdValues.utility[0] * 0.5,
+        "Skill Damage": shdValues.utility[1] * 0.5,
+        "Skill Duration": shdValues.utility[2] * 0.5,
+        "Repair Skills": shdValues.utility[3] * 0.5,
+        "Accuracy": shdValues.handling[0] * 0.5,
+        "Stability": shdValues.handling[1] * 0.5,
+        "Reload Speed": shdValues.handling[2] * 0.5,
+        "Ammo Capacity": shdValues.handling[3] * 0.5
+    };
+}
+*/
+
+function updateStatMapX() {
+    const shdLevel = parseInt($('#shd_level_input').val(), 10) || parseInt(localStorage.getItem('shdLevel'), 10) || 1;
+    const shdHealthBonus = shdLevel <= 1000 ? shdLevel * 30 : 1000 * 30 + (shdLevel - 1000) * 3;
+
+    statMap = {
+        "Weapon Damage": shdValues.offense[0] * 0.5,
+        "Headshot Damage": shdValues.offense[1] * 0.5,
+        "Critical Hit Chance": shdValues.offense[2] * 0.5,
+        "Critical Hit Damage": shdValues.offense[3] * 0.5,
+        "Health": db_baseline.stats_health + shdValues.defense[0] * 5000 + shdHealthBonus, // Include SHD level health boost
+        "Armor": db_baseline.stats_armor + shdValues.defense[1] * 1000,
+        "Explosive Resistance": shdValues.defense[2] * 1.0,
+        "Hazard Protection": shdValues.defense[3] * 1.0,
+        "Skill Haste": shdValues.utility[0] * 0.5,
+        "Skill Damage": shdValues.utility[1] * 0.5,
+        "Skill Duration": shdValues.utility[2] * 0.5,
+        "Repair Skills": shdValues.utility[3] * 0.5,
+        "Accuracy": shdValues.handling[0] * 0.5,
+        "Stability": shdValues.handling[1] * 0.5,
+        "Reload Speed": shdValues.handling[2] * 0.5,
+        "Ammo Capacity": shdValues.handling[3] * 0.5
+    };
+
+    console.log('Updated statMap:', statMap); // Debug log for updated statMap
+}
+
+function updateStatMap() {
+    const shdLevel = parseInt($('#shd_level_input').val(), 10) || parseInt(localStorage.getItem('shdLevel'), 10) || 1;
+    const shdHealthBonus = shdLevel <= 1000 ? shdLevel * 30 : 1000 * 30 + (shdLevel - 1000) * 3;
+
+    console.log('SHD Health Bonus in updateStatMap:', shdHealthBonus);
+    console.log('Custom Health Adjustment:', customHealthAdjustment);
+
+    statMap = {
+        "Weapon Damage": shdValues.offense[0] * 0.5,
+        "Headshot Damage": shdValues.offense[1] * 0.5,
+        "Critical Hit Chance": shdValues.offense[2] * 0.5,
+        "Critical Hit Damage": shdValues.offense[3] * 0.5,
+        "Health": db_baseline.stats_health + shdValues.defense[0] * 5000 + shdHealthBonus + customHealthAdjustment,
+        "Armor": db_baseline.stats_armor + shdValues.defense[1] * 1000,
+        "Explosive Resistance": shdValues.defense[2] * 1.0,
+        "Hazard Protection": shdValues.defense[3] * 1.0,
+        "Skill Haste": shdValues.utility[0] * 0.5,
+        "Skill Damage": shdValues.utility[1] * 0.5,
+        "Skill Duration": shdValues.utility[2] * 0.5,
+        "Repair Skills": shdValues.utility[3] * 0.5,
+        "Accuracy": shdValues.handling[0] * 0.5,
+        "Stability": shdValues.handling[1] * 0.5,
+        "Reload Speed": shdValues.handling[2] * 0.5,
+        "Ammo Capacity": shdValues.handling[3] * 0.5
+    };
+
+    console.log('Updated statMap JSON:', statMap);
+    console.log('Updated statMap:', JSON.stringify(statMap));
+}
+
+
+// SHD WATCH
+$(document).ready(function () {
+    
+    /*
+    function loadSHDWatchValues() {
+        $('#offense_text_1').text(shdValues.offense[0]);
+        $('#offense_text_2').text(shdValues.offense[1]);
+        $('#offense_text_3').text(shdValues.offense[2]);
+        $('#offense_text_4').text(shdValues.offense[3]);
+        $('#defense_text_1').text(shdValues.defense[0]);
+        $('#defense_text_2').text(shdValues.defense[1]);
+        $('#defense_text_3').text(shdValues.defense[2]);
+        $('#defense_text_4').text(shdValues.defense[3]);
+        $('#utility_text_1').text(shdValues.utility[0]);
+        $('#utility_text_2').text(shdValues.utility[1]);
+        $('#utility_text_3').text(shdValues.utility[2]);
+        $('#utility_text_4').text(shdValues.utility[3]);
+        $('#handling_text_1').text(shdValues.handling[0]);
+        $('#handling_text_2').text(shdValues.handling[1]);
+        $('#handling_text_3').text(shdValues.handling[2]);
+        $('#handling_text_4').text(shdValues.handling[3]);
+    }
+    */
+
+    // Function to load SHD values
+    function loadSHDWatchValues() {
+        for (let category in shdValues) {
+            for (let i = 0; i < shdValues[category].length; i++) {
+                $(`#${category}_text_${i + 1}`).text(shdValues[category][i]);
+            }
+        }
+
+        const savedSHDLevel = localStorage.getItem('shdLevel');
+        const shdLevel = savedSHDLevel ? parseInt(savedSHDLevel, 10) : 1;
+        $('#shd_level_input').val(shdLevel);
+        updateHealthBonusDisplay();
+    }
+
+    function calculateStats() {
+        const offenseBonus = (shdValues.offense.reduce((a, b) => a + b, 0) * 0.5);
+        const defenseBonus = (shdValues.defense.reduce((a, b) => a + b, 0) * 1);
+        const utilityBonus = (shdValues.utility.reduce((a, b) => a + b, 0) * 0.5);
+
+        $('#stats_dmg').text(offenseBonus.toFixed(1) + '%');
+        $('#stats_armor').text(defenseBonus.toFixed(1) + '%');
+        $('#stats_health').text(utilityBonus.toFixed(1) + '%');
+    }
+
+    function updateSlotViewStats(category) {
+        const categoryMap = {
+            offensive: 'offense',
+            defensive: 'defense',
+            utility: 'utility'
+        };
+
+        const mappedCategory = categoryMap[category] || category;
+
+        if (shdValues.hasOwnProperty(mappedCategory)) {
+            const stats = shdValues[mappedCategory];
+            const total = stats.reduce((a, b) => a + b, 0);
+            const average = (total / stats.length).toFixed(1);
+
+            $('#slot_viewstats').text(`${category.charAt(0).toUpperCase() + category.slice(1)} Stats: ${average}`);
+        } else {
+            console.error(`Category ${category} is not valid. shdValues:`, shdValues, `category:`, category);
+        }
+    }
+
+    // Hover effect to show tooltip
+    $('.shd_sub_section').hover(function() {
+        const id = $(this).attr('id');
+        $(this).attr('title', tooltips[id]);
+    });
+
+    // Set SHD Watch values to Max (50)
+    $('#btn_shd_max').click(function () {
+        $('.shd_number').text(50);
+        shdValues = {
+            offense: [50, 50, 50, 50],
+            defense: [50, 50, 50, 50],
+            utility: [50, 50, 50, 50],
+            handling: [50, 50, 50, 50]
+        };
+        saveSHDWatchValues();
+        load_build_template(build_template);
+    });
+
+    // Set SHD Watch values to Mid (25)
+    $('#btn_shd_mid').click(function () {
+        $('.shd_number').text(25);
+        shdValues = {
+            offense: [25, 25, 25, 25],
+            defense: [25, 25, 25, 25],
+            utility: [25, 25, 25, 25],
+            handling: [25, 25, 25, 25]
+        };
+        saveSHDWatchValues();
+        load_build_template(build_template);
+    });
+
+    // Set SHD Watch values to Min (0)
+    $('#btn_shd_min').click(function () {
+        $('.shd_number').text(0);
+        shdValues = {
+            offense: [0, 0, 0, 0],
+            defense: [0, 0, 0, 0],
+            utility: [0, 0, 0, 0],
+            handling: [0, 0, 0, 0]
+        };
+        saveSHDWatchValues();
+        load_build_template(build_template);
+    });
+
+    // Save SHD Watch values
+    $('#btn_save_shd').click(function () {
+        const selectedSection = $('.shd_sub_section.selected');
+        
+        if (selectedSection.length === 0) {
+            alert("Please select an SHD value to save.");
+            return;
+        }
+    
+        const selectedSectionParts = selectedSection.attr('id').split('_');
+        const category = selectedSectionParts[0];
+        const index = selectedSectionParts[1] - 1;
+        const newValue = parseInt($('#shd_edit_input').val(), 10);
+        shdValues[category][index] = newValue;
+    
+        // Save custom backup values
+        localStorage.setItem('customSHDValues', JSON.stringify(shdValues));
+        
+        // Save main SHD values
+        saveSHDWatchValues();
+    
+        // Call this function initially and whenever shdValues change
+        updateStatMap();
+    
+        $(`#${category}_text_${index + 1}`).text(newValue);
+        load_build_template(build_template);
+    });
+
+    $('#btn_custom').click(function () {
+        const customSHDValues = localStorage.getItem('customSHDValues');
+        
+        if (customSHDValues) {
+            shdValues = JSON.parse(customSHDValues);
+    
+            // Save main SHD values
+            saveSHDWatchValues();
+    
+            // Call this function initially and whenever shdValues change
+            updateStatMap();
+    
+            loadSHDWatchValues();  // Update the SHD watch modal with custom values
+            load_build_template(build_template);  // Recalculate the stats and update the UI
+        } else {
+            alert("No custom SHD values found.");
+        }
+    });
+
+    /*
+    $('#btn_save_shd').click(function () {
+        const selectedSection = $('.shd_sub_section.selected').attr('id').split('_');
+        const category = selectedSection[0];
+        const index = selectedSection[1] - 1;
+        const newValue = parseInt($('#shd_edit_input').val(), 10);
+        shdValues[category][index] = newValue;
+    
+        const shdLevel = parseInt($('#shd_level_input').val(), 10);
+    
+        // Call this function initially and whenever shdValues change
+        updateStatMap();
+    
+        $(`#${category}_text_${index + 1}`).text(newValue);
+        localStorage.setItem('shdValues', JSON.stringify(shdValues));
+        localStorage.setItem('shdLevel', shdLevel);
+        load_build_template(build_template);
+    });
+    */
+
+    $('#btn_save_shd_level').click(function () {
+        const shdLevel = parseInt($('#shd_level_input').val(), 10);
+    
+        // Validate SHD Level
+        if (isNaN(shdLevel) || shdLevel < 1 || shdLevel > 2000) {
+            alert("Please enter a valid SHD level between 1 and 2000.");
+            return;
+        }
+    
+        // Save SHD Level
+        localStorage.setItem('shdLevel', shdLevel);
+    
+        // Recalculate stats with the new SHD Level
+        const stats = calculate_all_stats(build_template);
+    
+        // Call this function initially and whenever shdValues change
+        updateStatMap();
+        load_build_template(build_template);
+
+        // Update the Health bonus display
+        updateHealthBonusDisplay();
+    });
+
+    // Select SHD section for editing
+    $('.shd_sub_section').click(function () {
+        $('.shd_sub_section').removeClass('selected');
+        $(this).addClass('selected');
+        const selectedValue = $(this).find('.shd_number').text();
+        const sectionId = $(this).attr('id');
+        const sectionName = tooltips[sectionId];
+        $('#shd_edit_label').text(sectionName);
+        $('#shd_edit_input').val(selectedValue);
+    });
+
+    // Update slot view stats based on dropdown selection
+    $('#viewstats').change(function () {
+        updateSlotViewStats($(this).val());
+    });
+
+    // Call this function when SHD values change
+    $('#btn_shd_max, #btn_shd_mid, #btn_shd_min, #btn_save_shd').click(function () {
+        load_build_template(build_template);
+    });
+
+    function saveSHDWatchValues() {
+        localStorage.setItem('shdValues', JSON.stringify(shdValues));
+    }
+
+    /*
+    function loadSavedSHDWatchValues() {
+        const savedValues = localStorage.getItem('shdValues');
+        if (savedValues) {
+            shdValues = JSON.parse(savedValues);
+            loadSHDWatchValues();
+            load_build_template(build_template);
+        }
+    }
+    */
+
+    /*
+    function loadSavedSHDWatchValues() {
+        const savedValues = localStorage.getItem('shdValues');
+        if (savedValues) {
+            shdValues = JSON.parse(savedValues);
+            loadSHDWatchValues();
+        }
+    
+        const savedSHDLevel = localStorage.getItem('shdLevel');
+        const shdLevel = savedSHDLevel ? parseInt(savedSHDLevel, 10) : 1;
+        $('#shd_level_input').val(shdLevel);
+    
+        load_build_template(build_template);
+    }
+    */
+
+    function loadSavedSHDWatchValues() {
+        const savedValues = localStorage.getItem('shdValues');
+        const savedLevel = localStorage.getItem('shdLevel');
+        
+        if (savedValues) {
+            shdValues = JSON.parse(savedValues);
+            loadSHDWatchValues();
+            load_build_template(build_template);
+        }
+        
+        if (savedLevel) {
+            $('#shd_level_input').val(savedLevel);
+    
+            // Update Health Bonus display
+            const shdLevel = parseInt(savedLevel, 10);
+            const shdHealthBonus = shdLevel <= 1000 ? shdLevel * 30 : 1000 * 30 + (shdLevel - 1000) * 3;
+            $('#shd_health_bonus').text(`Health Bonus: ${shdHealthBonus}`);
+        }
+    }
+    
+    loadSavedSHDWatchValues();
+    loadSHDWatchValues();
+    load_build_template(build_template);
+});
+
+
+function show_db_statsX(v_socket_class) {
+    $("#slot_viewstats").empty();
+
+    let content = "<table>";
+    console.log(`Calculating stats for: ${v_socket_class}`);
+
+    for (let v_key in db_stats[v_socket_class]) {
+        let baseValue = db_stats[v_socket_class][v_key];
+        const shdBonus = getSHDBonus(v_key);
+        let totalValue = baseValue + shdBonus;
+
+        // Log detailed debug information
+        console.log(`Stat: ${v_key}, Base Value: ${baseValue}, SHD Bonus: ${shdBonus}, Total Value after SHD Bonus: ${totalValue}`);
+
+        let displayValue;
+        if (baseValue === 0 && shdBonus === 0) {
+            displayValue = "-";
+        } else if (v_key === "Skill Tier") {
+            displayValue = totalValue;
+        } else if (totalValue <= 500) {
+            displayValue = `+${totalValue.toFixed(1)}%`;
+        } else {
+            displayValue = nFormatter(totalValue);
+        }
+
+        content += "<tr>";
+        content += `    <td class="stats_list_value">${displayValue}</td>`;
+        content += `    <td class="stats_list">${v_key}</td>`;
+        content += "</tr>";
+    }
+
+    content += "</table>";
+    $("#slot_viewstats").append(content);
+}
+
+function show_db_statsXX(v_socket_class) {
+    // Check if the latestCalculations has the necessary data
+    if (!latestCalculations[v_socket_class]) {
+        console.error(`Error: No data found for ${v_socket_class}`);
+        return;
+    }
+
+    $("#slot_viewstats").empty();
+
+    let content = "<table>";
+    console.log(`Calculating stats for: ${v_socket_class}`);
+
+    for (let v_key in latestCalculations[v_socket_class]) {
+        let totalValue = latestCalculations[v_socket_class][v_key];
+
+        // Replace undefined values with a dash
+        if (totalValue === undefined) {
+            totalValue = "-";
+        }
+
+        // Log detailed debug information
+        console.log(`Stat: ${v_key}, Total Value: ${totalValue}`);
+
+        let displayValue;
+        if (totalValue === "-") {
+            displayValue = totalValue;
+        } else if (totalValue === 0) {
+            displayValue = "-";
+        } else if (v_key === "Skill Tier") {
+            displayValue = totalValue;
+        } else if (totalValue <= 500) {
+            displayValue = `+${totalValue.toFixed(1)}%`;
+        } else {
+            displayValue = nFormatter(totalValue);
+        }
+
+        content += "<tr>";
+        content += `    <td class="stats_list_value">${displayValue}</td>`;
+        content += `    <td class="stats_list">${v_key}</td>`;
+        content += "</tr>";
+    }
+
+    content += "</table>";
+    $("#slot_viewstats").append(content);
+}
+
+
+/*
+// Function to get SHD Watch bonus for a given stat key
+function getSHDBonus(statKey) {
+    const statMap = {
+        "Weapon Damage": shdValues.offense[0] * 0.5,
+        "Critical Hit Damage": shdValues.offense[1] * 0.5,
+        "Critical Hit Chance": shdValues.offense[2] * 0.5,
+        "Headshot Damage": shdValues.offense[3] * 0.5,
+        "Armor": shdValues.defense[0] * 1000,
+        "Health": shdValues.defense[1] * 5000,
+        "Explosive Resistance": shdValues.defense[2] * 1.0,
+        "Hazard Protection": shdValues.defense[3] * 1.0,
+        "Skill Damage": shdValues.utility[0] * 0.5,
+        "Skill Haste": shdValues.utility[1] * 0.5,
+        "Skill Duration": shdValues.utility[2] * 0.5,
+        "Repair Skills": shdValues.utility[3] * 0.5,
+        "Accuracy": shdValues.handling[0] * 0.5,
+        "Stability": shdValues.handling[1] * 0.5,
+        "Reload Speed": shdValues.handling[2] * 0.5,
+        "Weapon Handling": shdValues.handling[3] * 0.5,
+    };
+
+    return statMap[statKey] || 0; // Return the SHD bonus for the statKey, or 0 if not found
+}
+
+
+// Function to get SHD Watch bonus for a given stat key
+function getSHDBonusValues() {
+    return {
+        "Weapon Damage": shdValues.offense[0] * 0.5,
+        "Critical Hit Damage": shdValues.offense[1] * 0.5,
+        "Critical Hit Chance": shdValues.offense[2] * 0.5,
+        "Headshot Damage": shdValues.offense[3] * 0.5,
+        "Armor": shdValues.defense[0] * 1.0,
+        "Health": shdValues.defense[1] * 1.0,
+        "Explosive Resistance": shdValues.defense[2] * 1.0,
+        "Hazard Protection": shdValues.defense[3] * 1.0,
+        "Skill Damage": shdValues.utility[0] * 0.5,
+        "Skill Haste": shdValues.utility[1] * 0.5,
+        "Skill Duration": shdValues.utility[2] * 0.5,
+        "Repair Skills": shdValues.utility[3] * 0.5,
+        "Accuracy": shdValues.handling[0] * 0.5,
+        "Stability": shdValues.handling[1] * 0.5,
+        "Reload Speed": shdValues.handling[2] * 0.5,
+        "Weapon Handling": shdValues.handling[3] * 0.5,
+    };
+}
+*/
+
+// Function to get SHD Watch bonus for a given stat key
+function getSHDBonus(statKey) {
+    return statMap[statKey] || 0; // Return the SHD bonus for the statKey, or 0 if not found
+}
+
+// Function to get SHD Watch bonus values
+function getSHDBonusValues() {
+    return statMap;
+}
+
+// Handle the viewstats dropdown change event
+$(document).on("change", "#viewstats", function() {
+    v_value = $("#viewstats").val();
+    show_db_stats(v_value);
+});
+
+function set_db_stats() {
+    db_stats = {
+        "offensive": {},
+        "defensive": {},
+        "utility": {}
+    }
+    
+    db = db_gear_core;
+    for (let v_socket_class in db) {
+        for (let v_key in db[v_socket_class]) {
+            db_stats[v_socket_class][v_key] = 0;
+        }
+    }
+
+    db = db_gear_attribute;
+    for (let v_socket_class in db) {
+        for (let v_key in db[v_socket_class]) {
+            db_stats[v_socket_class][v_key] = 0;
+        }
+    }
+
+    db = db_gear_mod;
+    for (let v_socket_class in db) {
+        for (let v_key in db[v_socket_class]) {
+            db_stats[v_socket_class][v_key] = 0;
+        }
+    }
+
+    db = db_gear_extra;
+    for (let v_socket_class in db) {
+        for (let v_key in db[v_socket_class]) {
+            db_stats[v_socket_class][v_key] = 0;
+        }
+    }
+
+    // LOAD BASELINE
+    v_stats_dmg = db_baseline["stats_dmg"];
+    v_stats_armor = db_baseline["stats_armor"];
+    v_stats_health = db_baseline["stats_health"];
+
+    // Apply SHD bonuses
+    v_stats_dmg += getSHDBonus("Weapon Damage");
+    v_stats_armor += getSHDBonus("Armor");
+    v_stats_health += getSHDBonus("Health");
+
+    db_stats["defensive"]["Armor"] = v_stats_armor;
+    db_stats["defensive"]["Health"] = v_stats_health;
+
+    return db_stats;
+}
+
+
+function calculate_all_statsX(build_template) {
+    let v_stats_dmg = shdValues.offense[0] * 0.5;
+    let v_stats_armor = db_baseline["stats_armor"] + shdValues.defense[1] * 1000;
+    let v_stats_health = db_baseline["stats_health"] + shdValues.defense[0] * 5000;
+
+    console.log(`SHD Bonuses - Damage: ${v_stats_dmg} Armor: ${v_stats_armor} Health: ${v_stats_health}`);
+
+    set_db_stats();
+
+    for (let v_slot_id in build_template) {
+        if (["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"].includes(v_slot_id)) {
+            for (let v_key2fix in build_template[v_slot_id]) {
+                if (v_key2fix === "core") {
+                    build_template[v_slot_id]["socket1"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "attr1") {
+                    build_template[v_slot_id]["socket2"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "attr2") {
+                    build_template[v_slot_id]["socket3"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "mod") {
+                    build_template[v_slot_id]["socket4"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "talent") {
+                    build_template[v_slot_id]["socket5"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                }
+            }
+
+            if (_debug) {
+                console.log(build_template[v_slot_id]);
+            }
+
+            for (let v_slot_sub_key in build_template[v_slot_id]) {
+                if (v_slot_sub_key.startsWith("socket")) {
+                    let v_json = build_template[v_slot_id][v_slot_sub_key];
+                    let v_socket_name = v_json["name"];
+                    let v_socket_value = v_json["value"];
+                    let v_socket_class = v_json["class"];
+
+                    if (v_socket_name.toLowerCase() === "weapon damage") v_stats_dmg += Number(v_socket_value);
+                    if (v_socket_name.toLowerCase() === "armor") v_stats_armor += Number(v_socket_value);
+                    if (v_socket_name.toLowerCase() === "health") v_stats_health += Number(v_socket_value);
+                }
+            }
+        }
+    }
+
+    console.log(`AFTER: SHD Bonuses - Damage: ${v_stats_dmg} Armor: ${v_stats_armor} Health: ${v_stats_health}`);
+
+    return {
+        damage: v_stats_dmg.toFixed(1),
+        armor: Math.round(v_stats_armor),
+        health: Math.round(v_stats_health)
+    };
+}
+
+function calculate_all_statsX(build_template) {
+    console.log("++++++ calculate_all_stats ++++++");
+
+    // Ensure statMap is up to date
+    updateStatMap();
+
+    console.log("SHD Values:", JSON.stringify(shdValues));
+    console.log("SHD Watch Settings:", JSON.stringify(statMap));
+
+    // Initialize stats from statMap
+    let stats = { ...statMap }; // Create a copy of statMap to avoid modifying the original
+
+    console.log("Initial Stats with SHD bonuses:", stats);
+
+    // Debug log for initial state of build_template
+    let initial_build_template = JSON.parse(JSON.stringify(build_template));
+    console.log("Initial build template:", initial_build_template);
+
+    set_db_stats();
+
+    // Process build_template
+    for (let v_slot_id in build_template) {
+        if (["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"].includes(v_slot_id)) {
+            for (let v_key2fix in build_template[v_slot_id]) {
+                if (v_key2fix === "core") {
+                    build_template[v_slot_id]["socket1"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "attr1") {
+                    build_template[v_slot_id]["socket2"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "attr2") {
+                    build_template[v_slot_id]["socket3"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "mod") {
+                    build_template[v_slot_id]["socket4"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "talent") {
+                    build_template[v_slot_id]["socket5"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                }
+            }
+
+            if (_debug) {
+                console.log('Build Template After Initial Processing:', build_template[v_slot_id]);
+            }
+
+            for (let v_slot_sub_key in build_template[v_slot_id]) {
+                if (v_slot_sub_key.startsWith("socket")) {
+                    let v_json = build_template[v_slot_id][v_slot_sub_key];
+                    let v_socket_name = v_json["name"];
+                    let v_socket_value = Number(v_json["value"]);
+
+                    // Update stats based on the socket names
+                    if (stats[v_socket_name] !== undefined) {
+                        stats[v_socket_name] += v_socket_value;
+                        console.log(`Updated ${v_socket_name}: ${stats[v_socket_name]} (added ${v_socket_value})`);
+                    } else {
+                        stats[v_socket_name] = v_socket_value;
+                        console.log(`Added new stat ${v_socket_name}: ${stats[v_socket_name]}`);
+                    }
+                }
+            }
+        }
+    }
+
+    // Debug log for final state of build_template
+    if (_debug) {
+        console.log("Initial build template:", initial_build_template);
+        console.log("Final build template:", build_template);
+    }
+
+    // Separate stats into categories
+    latestCalculations = {
+        offensive: {
+            "Weapon Damage": stats["Weapon Damage"],
+            "Critical Hit Chance": stats["Critical Hit Chance"],
+            "Critical Hit Damage": stats["Critical Hit Damage"],
+            "Headshot Damage": stats["Headshot Damage"]
+        },
+        defensive: {
+            "Armor": stats["Armor"],
+            "Armor Regeneration": stats["Armor Regeneration"],
+            "Explosive Resistance": stats["Explosive Resistance"],
+            "Health": stats["Health"],
+            "Hazard Protection": stats["Hazard Protection"],
+            "Incoming Repairs": stats["Incoming Repairs"],
+            "Armor on Kill": stats["Armor on Kill"],
+            "Protection from Elites": stats["Protection from Elites"],
+            "Bleed Resistance": stats["Bleed Resistance"],
+            "Blind Resistance": stats["Blind Resistance"],
+            "Burn Resistance": stats["Burn Resistance"],
+            "Disrupt Resistance": stats["Disrupt Resistance"],
+            "Shock Resistance": stats["Shock Resistance"],
+            "Pulse Resistance": stats["Pulse Resistance"]
+        },
+        utility: {
+            "Skill Tier": stats["Skill Tier"],
+            "Repair Skills": stats["Repair Skills"],
+            "Skill Damage": stats["Skill Damage"],
+            "Status Effects": stats["Status Effects"],
+            "Skill Haste": stats["Skill Haste"],
+            "Skill Duration": stats["Skill Duration"]
+        },
+        handling: {
+            "Accuracy": stats["Accuracy"],
+            "Stability": stats["Stability"],
+            "Reload Speed": stats["Reload Speed"],
+            "Ammo Capacity": stats["Ammo Capacity"]
+        }
+    };
+
+    console.log("Updated Stats JSON:", latestCalculations);
+    console.log("Updated Stats STRING:", JSON.stringify(latestCalculations));
+
+    return latestCalculations;
+}
+
+function calculate_all_stats_WORKSBASELINE(build_template) {
+    console.log("++++++ calculate_all_stats ++++++");
+
+    // Update statMap with current SHD values
+    updateStatMap();
+
+    // Initialize stats from statMap
+    let stats = { ...statMap }; // Create a copy of statMap to avoid modifying the original
+
+    // Retrieve SHD Level from input or local storage
+    const shdLevel = parseInt($('#shd_level_input').val(), 10) || parseInt(localStorage.getItem('shdLevel'), 10) || 1;
+
+    // Calculate SHD Level Health Boost
+    const shdHealthBonus = shdLevel <= 1000 ? shdLevel * 30 : 1000 * 30 + (shdLevel - 1000) * 3;
+    stats["Health"] += shdHealthBonus;
+
+    console.log('SHD Level:', shdLevel);
+    console.log('SHD Health Bonus:', shdHealthBonus);
+    console.log('Initial Stats with SHD bonuses JSON:', stats);
+    console.log('Initial Stats with SHD bonuses:', JSON.stringify(stats));
+
+    // Debug log for initial state of build_template
+    let initial_build_template = JSON.parse(JSON.stringify(build_template));
+
+    set_db_stats();
+
+    // Process build_template
+    for (let v_slot_id in build_template) {
+        if (["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"].includes(v_slot_id)) {
+            console.log(`Processing slot: ${v_slot_id}`);
+            for (let v_key2fix in build_template[v_slot_id]) {
+                if (v_key2fix === "core") {
+                    build_template[v_slot_id]["socket1"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "attr1") {
+                    build_template[v_slot_id]["socket2"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "attr2") {
+                    build_template[v_slot_id]["socket3"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "mod") {
+                    build_template[v_slot_id]["socket4"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "talent") {
+                    build_template[v_slot_id]["socket5"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                }
+            }
+
+            if (_debug) {
+                console.log('Build Template After Initial Processing:', build_template[v_slot_id]);
+            }
+
+            for (let v_slot_sub_key in build_template[v_slot_id]) {
+                if (v_slot_sub_key.startsWith("socket")) {
+                    let v_json = build_template[v_slot_id][v_slot_sub_key];
+                    let v_socket_name = v_json["name"];
+                    let v_socket_value = Number(v_json["value"]);
+
+                    console.log(`Processing socket: ${v_slot_id} - ${v_socket_name}: ${v_socket_value}`);
+
+                    // Update stats based on the socket names
+                    if (stats[v_socket_name] !== undefined) {
+                        stats[v_socket_name] += v_socket_value;
+                    } else {
+                        // If stat not found in initial statMap, add it dynamically
+                        stats[v_socket_name] = v_socket_value;
+                        console.log(`Added new stat ${v_socket_name}: ${v_socket_value}`);
+                    }
+
+                    console.log(`Updated ${v_socket_name}: ${stats[v_socket_name]} (added ${v_socket_value})`);
+                }
+            }
+        }
+    }
+
+    // Debug log for final state of build_template
+    if (_debug) {
+        console.log("Initial build template:", initial_build_template);
+        console.log("Final build template:", build_template);
+    }
+
+    // Format stats to round numbers to 2 decimal places
+    let formattedStats = Object.fromEntries(
+        Object.entries(stats).map(([key, value]) => [
+            key,
+            typeof value === 'number' ? parseFloat(value.toFixed(2)) : value
+        ])
+    );
+
+    console.log('Updated Stats JSON:', formattedStats);
+    console.log('Updated Stats:', JSON.stringify(formattedStats));
+
+    // Assign to global latestCalculations variable
+    latestCalculations = {
+        offensive: {},
+        defensive: {},
+        utility: {},
+        handling: {},
+    };
+
+    // Split formattedStats into categories
+    for (let stat in formattedStats) {
+        if ([
+            "Weapon Damage", "Headshot Damage", "Critical Hit Chance", "Critical Hit Damage",
+            "Weapon Handling", "Pistol Damage", "Melee Damage", "Damage to TOC",
+            "Health Damage", "Damage to Armor"
+        ].includes(stat)) {
+            latestCalculations.offensive[stat] = formattedStats[stat];
+        } else if ([
+            "Armor", "Explosive Resistance", "Health", "Hazard Protection",
+            "Armor Regeneration", "Incoming Repairs", "Armor on Kill", "Protection from Elites",
+            "Bleed Resistance", "Blind Resistance", "Burn Resistance", "Disrupt Resistance",
+            "Shock Resistance", "Pulse Resistance"
+        ].includes(stat)) {
+            latestCalculations.defensive[stat] = formattedStats[stat];
+        } else if ([
+            "Skill Tier", "Skill Haste", "Skill Damage", "Skill Duration", "Repair Skills", "Status Effects"
+        ].includes(stat)) {
+            latestCalculations.utility[stat] = formattedStats[stat];
+        } else if ([
+            "Accuracy", "Stability", "Reload Speed", "Ammo Capacity"
+        ].includes(stat)) {
+            latestCalculations.handling[stat] = formattedStats[stat];
+        } else {
+            console.log(`Uncategorized stat: ${stat}`);
+        }
+    }
+
+    // Log final damage, armor, and health
+    const v_stats_dmg = latestCalculations.offensive["Weapon Damage"] || 0;
+    const v_stats_armor = latestCalculations.defensive["Armor"] || 0;
+    const v_stats_health = latestCalculations.defensive["Health"] || 0;
+
+    console.log(`Final Stats - Damage: ${v_stats_dmg} Armor: ${v_stats_armor} Health: ${v_stats_health}`);
+
+    return latestCalculations;
+}
+
+
+function calculate_all_stats(build_template) {
+    console.log("++++++ calculate_all_stats ++++++");
+    console.log('db_baseline:', db_baseline);
+    console.log('shdValues:', shdValues);
+
+    // Update statMap with current SHD values
+    updateStatMap();
+    console.log('Updated statMap:', statMap);
+
+    // Initialize stats from statMap
+    let stats = { ...statMap }; // Create a copy of statMap to avoid modifying the original
+
+    const shdLevel = parseInt($('#shd_level_input').val(), 10) || parseInt(localStorage.getItem('shdLevel'), 10) || 1;
+    const shdHealthBonus = shdLevel <= 1000 ? shdLevel * 30 : 1000 * 30 + (shdLevel - 1000) * 3;
+    console.log('SHD Level:', shdLevel);
+    console.log('SHD Health Bonus:', shdHealthBonus);
+
+    console.log('Initial Stats with SHD bonuses JSON:', stats);
+    console.log('Initial Stats with SHD bonuses:', JSON.stringify(stats));
+
+    // Debug log for initial state of build_template
+    let initial_build_template = JSON.parse(JSON.stringify(build_template));
+    console.log('Initial build template:', initial_build_template);
+
+    set_db_stats();
+
+    // Process build_template
+    for (let v_slot_id in build_template) {
+        if (["slot_mask", "slot_backpack", "slot_chest", "slot_gloves", "slot_holster", "slot_kneepads"].includes(v_slot_id)) {
+            for (let v_key2fix in build_template[v_slot_id]) {
+                if (v_key2fix === "core") {
+                    build_template[v_slot_id]["socket1"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "attr1") {
+                    build_template[v_slot_id]["socket2"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "attr2") {
+                    build_template[v_slot_id]["socket3"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "mod") {
+                    build_template[v_slot_id]["socket4"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                } else if (v_key2fix === "talent") {
+                    build_template[v_slot_id]["socket5"] = build_template[v_slot_id][v_key2fix];
+                    delete build_template[v_slot_id][v_key2fix];
+                }
+            }
+
+            if (_debug) {
+                console.log('Build Template After Initial Processing:', build_template[v_slot_id]);
+            }
+
+            for (let v_slot_sub_key in build_template[v_slot_id]) {
+                if (v_slot_sub_key.startsWith("socket")) {
+                    let v_json = build_template[v_slot_id][v_slot_sub_key];
+                    let v_socket_name = v_json["name"];
+                    let v_socket_value = Number(v_json["value"]);
+
+                    // Update stats based on the socket names
+                    if (stats[v_socket_name] !== undefined) {
+                        stats[v_socket_name] += v_socket_value;
+                    } else {
+                        // If stat not found in initial statMap, add it dynamically
+                        stats[v_socket_name] = v_socket_value;
+                        console.log(`Added new stat ${v_socket_name}: ${v_socket_value}`);
+                    }
+
+                    console.log(`Updated ${v_socket_name}: ${stats[v_socket_name]} (added ${v_socket_value})`);
+                }
+            }
+        }
+    }
+
+    // Debug log for final state of build_template
+    if (_debug) {
+        console.log("Initial build template:", initial_build_template);
+        console.log("Final build template:", build_template);
+    }
+
+    // Format stats to round numbers to 2 decimal places
+    let formattedStats = Object.fromEntries(
+        Object.entries(stats).map(([key, value]) => [
+            key,
+            typeof value === 'number' ? parseFloat(value.toFixed(2)) : value
+        ])
+    );
+
+    console.log('Updated Stats JSON:', formattedStats);
+    console.log('Updated Stats:', JSON.stringify(formattedStats));
+
+    // Assign to global latestCalculations variable
+    latestCalculations = {
+        offensive: {},
+        defensive: {},
+        utility: {},
+        handling: {},
+        uncategorized: {}
+    };
+
+    // Split formattedStats into categories
+    for (let stat in formattedStats) {
+        if (["Weapon Damage", "Headshot Damage", "Critical Hit Chance", "Critical Hit Damage", "Weapon Handling", "Pistol Damage", "Melee Damage", "Damage to TOC", "Health Damage", "Damage to Armor"].includes(stat)) {
+            latestCalculations.offensive[stat] = formattedStats[stat];
+        } else if (["Armor", "Explosive Resistance", "Health", "Hazard Protection", "Armor Regeneration", "Incoming Repairs", "Armor on Kill", "Protection from Elites", "Bleed Resistance", "Blind Resistance", "Burn Resistance", "Disrupt Resistance", "Shock Resistance", "Pulse Resistance"].includes(stat)) {
+            latestCalculations.defensive[stat] = formattedStats[stat];
+        } else if (["Skill Haste", "Skill Damage", "Skill Duration", "Repair Skills", "Skill Tier", "Status Effects"].includes(stat)) {
+            latestCalculations.utility[stat] = formattedStats[stat];
+        } else if (["Accuracy", "Stability", "Reload Speed", "Ammo Capacity"].includes(stat)) {
+            latestCalculations.handling[stat] = formattedStats[stat];
+        } else {
+            // Default uncategorized stats to the "uncategorized" category
+            latestCalculations.uncategorized[stat] = formattedStats[stat];
+            console.log(`Uncategorized stat: ${stat}`);
+        }
+    }
+
+    console.log('Final Calculations JSON:', JSON.stringify(latestCalculations));
+    console.log('Final Calculations:', latestCalculations);
+
+    return latestCalculations;
+}
+
+function show_db_stats(v_socket_class) {
+    let calculatedStats = calculate_all_stats(build_template);
+
+    $("#stats_dmg").html(`+${calculatedStats.offensive["Weapon Damage"].toFixed(1)}%`);
+    $("#stats_armor").html(nFormatter(calculatedStats.defensive["Armor"]));
+    $("#stats_health").html(nFormatter(calculatedStats.defensive["Health"]));
+
+    $("#slot_viewstats").empty();
+
+    let content = "<table>";
+    console.log(`Calculating stats for: ${v_socket_class}`);
+
+    const stats = latestCalculations[v_socket_class] || {};
+
+    const statOrder = {
+        offensive: ["Weapon Damage", "Critical Hit Chance", "Critical Hit Damage", "Headshot Damage", "Weapon Handling", "Pistol Damage", "Melee Damage", "Damage to TOC", "Health Damage", "Damage to Armor"],
+        defensive: ["Armor", "Armor Regeneration", "Explosive Resistance", "Health", "Hazard Protection", "Incoming Repairs", "Armor on Kill", "Protection from Elites", "Bleed Resistance", "Blind Resistance", "Burn Resistance", "Disrupt Resistance", "Shock Resistance", "Pulse Resistance"],
+        utility: ["Skill Tier", "Repair Skills", "Skill Damage", "Status Effects", "Skill Haste", "Skill Duration"]
+    };
+
+    statOrder[v_socket_class].forEach(v_key => {
+        let totalValue = stats[v_key];
+
+        // Display a dash for undefined values
+        let displayValue;
+        if (totalValue === undefined) {
+            displayValue = "-";
+        } else if (v_key === "Skill Tier") {
+            displayValue = totalValue;
+        } else if (totalValue <= 500) {
+            displayValue = `+${totalValue.toFixed(1)}%`;
+        } else {
+            displayValue = nFormatter(totalValue);
+        }
+
+        content += "<tr>";
+        content += `    <td class="stats_list_value">${displayValue}</td>`;
+        content += `    <td class="stats_list">${v_key}</td>`;
+        content += "</tr>";
+    });
+
+    content += "</table>";
+    $("#slot_viewstats").append(content);
+
+    // Update stats overview section
+    const offensive = latestCalculations.offensive || {};
+    const defensive = latestCalculations.defensive || {};
+    const utility = latestCalculations.utility || {};
+
+    $("#stats_dmg").html(`+${(offensive["Weapon Damage"] || 0).toFixed(1)}%`);
+    $("#stats_armor").html(nFormatter(defensive["Armor"] || 0));
+    $("#stats_health").html(nFormatter(defensive["Health"] || 0));
+}
+
+
+
+
+
+
+
+function calculateHealthBonus(shdLevel) {
+    let healthBonus = 0;
+    if (shdLevel <= 1000) {
+        healthBonus = shdLevel * 30;
+    } else if (shdLevel <= 2000) {
+        healthBonus = (1000 * 30) + ((shdLevel - 1000) * 3);
+    }
+    return healthBonus;
+}
+
+// Function to update health bonus display
+function updateHealthBonusDisplay() {
+    const shdLevel = parseInt($('#shd_level_input').val(), 10) || 1;
+    const shdHealthBonus = shdLevel <= 1000 ? shdLevel * 30 : 1000 * 30 + (shdLevel - 1000) * 3;
+    $('#shd_health_bonus').text(`Health Bonus: ${shdHealthBonus}`);
+}
+
+// Call this function initially to set the Health bonus display on page load
+updateHealthBonusDisplay();
+
+
+// Function to calculate and show initial stats based on SHD values and level
+function showInitialStats() {
+    // Check if shdValues and db_baseline are defined
+    if (typeof shdValues === 'undefined' || typeof db_baseline === 'undefined') {
+        console.error("shdValues or db_baseline is not defined");
+        return;
+    }
+
+    // Get SHD level and calculate SHD Health Bonus
+    let shdLevel = parseInt(localStorage.getItem('shdLevel'), 10) || 1;
+    let shdHealthBonus = shdLevel <= 1000 ? shdLevel * 30 : 1000 * 30 + (shdLevel - 1000) * 3;
+
+    // Calculate SHD bonuses
+    let offenseBonus = (shdValues.offense[0] || 0) * 0.5; // Weapon Damage
+    let defenseBonus = (shdValues.defense[1] || 0) * 1000; // Armor
+    let healthBonus = (shdValues.defense[0] || 0) * 5000 + shdHealthBonus;  // Health
+
+    // Initial base stats with SHD bonuses
+    let initialStats = {
+        "Weapon Damage": offenseBonus,
+        "Armor": (db_baseline["stats_armor"] || 0) + defenseBonus,
+        "Health": (db_baseline["stats_health"] || 0) + healthBonus
+    };
+
+    // Debug output to console
+    console.log(`Initial SHD Level: ${shdLevel}`);
+    console.log(`Initial SHD Health Bonus: ${shdHealthBonus}`);
+    console.log(`Initial Stats with SHD bonuses JSON: ${JSON.stringify(initialStats)}`);
+    console.log(`Initial Stats with SHD bonuses:`, initialStats);
+
+    // Update the UI with the initial stats
+    $("#stats_dmg").html(`+${initialStats["Weapon Damage"].toFixed(1)}%`);
+    $("#stats_armor").html(nFormatter(initialStats["Armor"]));
+    $("#stats_health").html(nFormatter(initialStats["Health"]));
+}
+
+// Ensure initial stats are shown after the entire page and all JS are fully loaded
+$(window).on('load', function() {
+    showInitialStats();
+});
