@@ -733,3 +733,355 @@ a:visited {
   background-repeat: no-repeat;
   background-size: 3px 3px;
 }
+
+#slot_mask::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/gear/mask.png');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+#slot_backpack::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/gear/backpack.png');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+#slot_chest::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/gear/chest.png');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+#slot_gloves::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/gear/gloves.png');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+#slot_holster::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/gear/holster.png');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+#slot_kneepads::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/gear/kneepads.png');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+#slot_primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/weapon/main-weapon.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+#slot_secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/weapon/main-weapon.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+#slot_sidearm::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../icons/weapon/sidearm.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+.build_armor_body {
+  position: relative; /* Ensure the parent div is positioned relative for the pseudo-element */
+}
+
+.build_weapon_body, .build_sidearm_body {
+  position: relative; /* Ensure the parent div is positioned relative for the pseudo-element */
+}
+
+
+/* SHD Watch Section */
+.build_shd_watch_body {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+  width: 200px; /* Adjust as needed */
+  height: 200px; /* Adjust as needed */
+  margin: 10px auto;
+}
+
+.shd_section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2px;
+  position: relative;
+  border: 1px solid #202020; /* Adjust as needed */
+  padding: 5px;
+}
+
+.shd_sub_section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc; /* Adjust as needed */
+  cursor: pointer; /* Add cursor to indicate clickable sections */
+}
+
+.shd_sub_section:hover {
+  border-color: orange; /* Highlight on hover */
+}
+
+.shd_sub_section::before {
+  content: '';
+  position: absolute;
+  top: 25%; /* Adjust this value to move the icon slightly lower */
+  left: 50%;
+  transform: translate(-50%, -20%);
+  width: 100%;
+  height: 100%;
+  background-size: 50%; /* Adjust to 50% size */
+  background-repeat: no-repeat;
+  background-position: center; /* Adjust to center the icon horizontally */
+  opacity: 0.5; /* Adjust as needed */
+  z-index: 1;
+}
+
+#offense_1::before { background-image: url('../icons/shd/offense_1.png'); }
+#offense_2::before { background-image: url('../icons/shd/offense_2.png'); }
+#offense_3::before { background-image: url('../icons/shd/offense_3.png'); }
+#offense_4::before { background-image: url('../icons/shd/offense_4.png'); }
+#defense_1::before { background-image: url('../icons/shd/defense_1.png'); }
+#defense_2::before { background-image: url('../icons/shd/defense_2.png'); }
+#defense_3::before { background-image: url('../icons/shd/defense_3.png'); }
+#defense_4::before { background-image: url('../icons/shd/defense_4.png'); }
+#utility_1::before { background-image: url('../icons/shd/utility_1.png'); }
+#utility_2::before { background-image: url('../icons/shd/utility_2.png'); }
+#utility_3::before { background-image: url('../icons/shd/utility_3.png'); }
+#utility_4::before { background-image: url('../icons/shd/utility_4.png'); }
+#handling_1::before { background-image: url('../icons/shd/handling_1.png'); }
+#handling_2::before { background-image: url('../icons/shd/handling_2.png'); }
+#handling_3::before { background-image: url('../icons/shd/handling_3.png'); }
+#handling_4::before { background-image: url('../icons/shd/handling_4.png'); }
+
+/* SHD Watch Title Section */
+.build_shd_watch_title {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #8888887c;
+  border: 1px solid rgba(85, 85, 85, 0.473);
+}
+
+.build_shd_watch_body {
+  padding: 5px;
+  border: 1px solid rgba(139, 139, 139, 0.473);
+  height: 300px;
+  width: 300px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+
+  background:
+      linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+      linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+      linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+      linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%,
+      linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+      linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+      linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+      linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 3px 3px;
+
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+
+/* SHD Watch Sub-Sections */
+.shd_section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.shd_sub_section {
+  width: 45%;
+  height: 45%;
+  border: 1px solid rgba(139, 139, 139, 0.473);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background:
+      linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+      linear-gradient(to right, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+      linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+      linear-gradient(to left, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%,
+      linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 0 0,
+      linear-gradient(to bottom, rgb(255, 255, 255) 5px, transparent 5px) 100% 0,
+      linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 0 100%,
+      linear-gradient(to top, rgb(255, 255, 255) 5px, transparent 5px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 3px 3px;
+
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+
+.shd_number {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 12px;
+  color: #FFFFFF;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.shd_bottom_line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: orange;
+}
+
+.shd_input {
+  background-color: #111;
+  color: #fff;
+  font-size: 14px;
+  font-family: Consolas, monaco, monospace;
+  width: 50px;
+  border: 1px solid #303030;
+  outline: none;
+  text-align: center;
+}
+
+.modal-content {
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgb(88, 88, 88);
+}
+
+.modal-header {
+  height: 40px;
+  border-bottom: 0px solid rgb(88, 88, 88);
+}
+
+.modal-title {
+  font-size: 18px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn-save {
+  background-color: orange;
+  border: 1px solid #888888;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.btn-save:hover {
+  background-color: #ff6600;
+  color: #FFFFFF;
+}
